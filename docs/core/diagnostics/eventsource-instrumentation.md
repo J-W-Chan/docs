@@ -73,7 +73,7 @@ which the EventSource provides events. It's not recommended to include "EventSou
 3. Assign Event IDs explicitly, this way seemingly benign changes to the code in the source class such as rearranging it or
 adding a method in the middle won't change the event ID associated with each method.
 4. When authoring events that represent the start and end of a unit of work, by convention these methods are named with
-suffixes 'Start' and 'Stop'. For example, "RequestStart' and 'RequestStop'.
+suffixes 'Start' and 'Stop'. For example, 'RequestStart' and 'RequestStop'.
 5. Do not specify an explicit value for EventSourceAttribute’s Guid property, unless you need it for backwards compatibility reasons.
 The default Guid value is derived from the source’s name, which allows tools to accept the more human-readable name and derive
 the same Guid.
@@ -85,6 +85,7 @@ Change the version of an event whenever you change the data that is serialized w
 end of the event declaration, that is, at the end of the list of method parameters. If this isn't possible, create a new event with a
 new ID to replace the old one.
 8. When declaring events methods, specify fixed-size payload data before variably sized data.
+9. Do not use strings containing null characters. When generating the manifest for ETW EventSource will declare all strings as null terminated, even though it is possible to have a null character in a C# String. If a string contains a null character the entire string will be written to the event payload, but any parser will treat the first null character as the end of the string. If there are payload arguments after the string, the remainder of the string will be parsed instead of the intended value.
 
 ## Typical event customizations
 
@@ -183,14 +184,13 @@ authoring errors.
 4. When debugging, that same error string will also be logged using Debug.WriteLine() and show up in the debug
 output window.
 5. EventSource internally throws and then catches exceptions when errors occur. To observe when these exceptions are occurring, enable first chance exceptions
-in a debugger, or use event tracing with the .NET runtime's [Exception events](../../fundamentals/diagnostics/runtime-exception-events.md)
-enabled.
+in a debugger, or use event tracing with the .NET runtime's [Exception events](../../fundamentals/diagnostics/runtime-exception-events.md) enabled.
 
 ## Advanced customizations
 
 ### Setting OpCodes and Tasks
 
-ETW has concepts of [Tasks and OpCodes](/windows/win32/wes/defining-tasks-and-opcodes)
+ETW has concepts of [Tasks and OpCodes](/windows/win32/wes/defining-tasks-and-opcodes),
 which are further mechanisms for tagging and filtering events. You can associate events with specific tasks and opcodes
 using the <xref:System.Diagnostics.Tracing.EventAttribute.Task%2A> and
 <xref:System.Diagnostics.Tracing.EventAttribute.Opcode%2A> properties. Here's an example:

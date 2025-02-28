@@ -1,5 +1,5 @@
 ---
-title: "Classes, structs, and records in C#"
+title: "Classes, structs, and records"
 description: Describes the use of classes, structures (structs), and records in C#.
 ms.date: 03/23/2022
 helpviewer_keywords: 
@@ -12,7 +12,7 @@ helpviewer_keywords:
   - "objects [C#]"
   - "C# language, classes"
 ---
-# Overview of classes, structs, and records in C\#
+# Overview of object oriented techniques in C\#
 
 In C#, the definition of a type&mdash;a class, struct, or record&mdash;is like a blueprint that specifies what the type can do. An object is basically a block of memory that has been allocated and configured according to the blueprint. This article provides an overview of these blueprints and their features. The [next article in this series](objects.md) introduces objects.
 
@@ -66,7 +66,7 @@ Classes, structs, and records can implement multiple interfaces. To implement fr
   
 ## Generic Types  
 
-Classes, structs, and records can be defined with one or more type parameters. Client code supplies the type when it creates an instance of the type. For example, The <xref:System.Collections.Generic.List%601> class in the <xref:System.Collections.Generic> namespace is defined with one type parameter. Client code creates an instance of a `List<string>` or `List<int>` to specify the type that the list will hold. For more information, see [Generics](../types/generics.md).  
+Classes, structs, and records can be defined with one or more type parameters. Client code supplies the type when it creates an instance of the type. For example, the <xref:System.Collections.Generic.List%601> class in the <xref:System.Collections.Generic> namespace is defined with one type parameter. Client code creates an instance of a `List<string>` or `List<int>` to specify the type that the list will hold. For more information, see [Generics](../types/generics.md).  
   
 ## Static Types  
 
@@ -90,15 +90,15 @@ In situations where it isn't convenient or necessary to create a named class you
   
 ## Extension Methods  
 
-You can "extend" a class without creating a derived class by creating a separate type. That type contains methods that can be called as if they belonged to the original type. For more information, see [Extension methods)](../../programming-guide/classes-and-structs/extension-methods.md).
+You can "extend" a class without creating a derived class by creating a separate type. That type contains methods that can be called as if they belonged to the original type. For more information, see [Extension methods](../../programming-guide/classes-and-structs/extension-methods.md).
   
 ## Implicitly Typed Local Variables  
 
-Within a class or struct method, you can use implicit typing to instruct the compiler to determine a variable's type at compile time. For more information, see [var (C# reference)](../../language-reference/keywords/var.md).
+Within a class or struct method, you can use implicit typing to instruct the compiler to determine a variable's type at compile time. For more information, see [var (C# reference)](../../language-reference/statements/declarations.md#implicitly-typed-local-variables).
 
 ## Records
 
-C# 9 introduces the `record` type, a reference type that you can create instead of a class or a struct. Records are classes with built-in behavior for encapsulating data in immutable types. C# 10 introduces the `record struct` value type. A record (either `record class` or `record struct`) provides the following features:
+You can add the `record` modifier to a class or a struct. Records are types with built-in behavior for value-based equality. A record (either `record class` or `record struct`) provides the following features:
 
 * Concise syntax for creating a reference type with immutable properties.
 * Value equality.

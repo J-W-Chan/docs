@@ -1,5 +1,5 @@
 ---
-title: Branches and loops - Introduction to C# tutorial
+title: Branches and loops - Introductory tutorial
 description: In this tutorial about branches and loops, you write C# code to explore the language syntax that supports conditional branches and loops to execute statements repeatedly.
 ms.date: 03/23/2022
 ---
@@ -7,6 +7,9 @@ ms.date: 03/23/2022
 # C# `if` statements and loops - conditional logic tutorial
 
 This tutorial teaches you how to write C# code that examines variables and changes the execution path based on those variables. You write C# code and see the results of compiling and running it. The tutorial contains a series of lessons that explore branching and looping constructs in C#. These lessons teach you the fundamentals of the C# language.
+
+> [!TIP]
+> To paste a code snippet inside the **focus mode** you should use your keyboard shortcut (<kbd>Ctrl</kbd> + <kbd>v</kbd>, or <kbd>cmd</kbd> + <kbd>v</kbd>).
 
 ## Prerequisites
 
@@ -100,7 +103,7 @@ else
 
 The `==` symbol tests for *equality*. Using `==` distinguishes the test for equality from assignment, which you saw in `a = 5`.
 
-The `&&` represents "and". It means both conditions must be true to execute the statement in the true branch.  These examples also show that you can have multiple statements in each conditional branch, provided you enclose them in `{` and `}`. You can also use  `||` to represent "or". Add the following code after what you've written so far:
+The `&&` represents "and". It means both conditions must be true to execute the statement in the true branch.  These examples also show that you can have multiple statements in each conditional branch, as long as you enclose them in `{` and `}`. You can also use  `||` to represent "or". Add the following code after what you've written so far:
 
 ```csharp
 if ((a + b + c > 10) || (a == b))
@@ -181,7 +184,7 @@ while (counter < 10)
 }
 ```
 
-The `while` statement checks a condition and executes the statement or statement block following the `while`. It repeatedly checks the condition and executing those statements until the condition is false.
+The `while` statement checks a condition and executes the statement or statement block following the `while`. It repeatedly checks the condition, executing those statements until the condition is false.
 
 There's one other new operator in this example. The `++` after the `counter` variable is the **increment** operator. It adds 1 to the value of `counter` and stores that value in the `counter` variable.
 

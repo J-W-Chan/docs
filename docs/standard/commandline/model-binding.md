@@ -45,7 +45,7 @@ This behavior can be overridden by setting <xref:System.CommandLine.Option.Allow
 myapp --item one --item two --item three
 ```
 
-## Parameter binding up to 16 options and arguments
+## Parameter binding up to 8 options and arguments
 
 The following example shows how to bind options to command handler parameters, by calling <xref:System.CommandLine.Handler.SetHandler%2A>:
 
@@ -163,7 +163,7 @@ Command-line applications that work with the file system can use the <xref:Syste
 
 With `FileInfo` and `DirectoryInfo` the pattern matching code is not required:
 
-:::code language="csharp" source="snippets/model-binding/csharp/Program.cs" id="filesysteminfo" :::
+:::code language="csharp" source="snippets/model-binding/csharp/Program.cs" id="fileinfo" :::
 
 ### Other supported types
 

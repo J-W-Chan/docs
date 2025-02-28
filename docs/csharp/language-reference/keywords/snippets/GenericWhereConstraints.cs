@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-using static keywords.UnmanagedExtensions;
+using static Keywords.UnmanagedExtensions;
 
-namespace keywords
+namespace Keywords
 {
     // <Snippet1>
     public class AGenericClass<T> where T : IComparable<T> { }
@@ -48,6 +48,17 @@ namespace keywords
         T item = new T();
     }
     // </Snippet5>
+
+    // <SnippetRefStruct>
+    public class GenericRefStruct<T> where T : allows ref struct
+    {
+        // Scoped is allowed because T might be a ref struct
+        public void M(scoped T parm)
+        {
+
+        }
+    }
+    // </SnippetRefStruct>
 
     // <Snippet6>
     public interface IMyInterface { }

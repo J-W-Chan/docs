@@ -8,7 +8,7 @@ helpviewer_keywords:
 ---
 # Interfaces - define behavior for multiple types
 
-An interface contains definitions for a group of related functionalities that a non-abstract [`class`](../../language-reference/keywords/class.md) or a [`struct`](../../language-reference/builtin-types/struct.md) must implement. An interface may define `static` methods, which must have an implementation. Beginning with C# 8.0, an interface may define a default implementation for members. An interface may not declare instance data such as fields, auto-implemented properties, or property-like events.
+An interface contains definitions for a group of related functionalities that a non-abstract [`class`](../../language-reference/keywords/class.md) or a [`struct`](../../language-reference/builtin-types/struct.md) must implement. An interface may define `static` methods, which must have an implementation. An interface may define a default implementation for members. An interface may not declare instance data such as fields, automatically implemented properties, or property-like events.
 
 By using interfaces, you can, for example, include behavior from multiple sources in a class. That capability is important in C# because the language doesn't support multiple inheritance of classes. In addition, you must use an interface if you want to simulate inheritance for structs, because they can't actually inherit from another struct or class.
 
@@ -18,7 +18,7 @@ You define an interface by using the [`interface`](../../language-reference/keyw
 
 The name of an interface must be a valid C# [identifier name](../coding-style/identifier-names.md). By convention, interface names begin with a capital `I`.
 
-Any class or struct that implements the <xref:System.IEquatable%601> interface must contain a definition for an <xref:System.IEquatable%601.Equals%2A> method that matches the signature that the interface specifies. As a result, you can count on a class that implements `IEquatable<T>` to contain an `Equals` method with which an instance of the class can determine whether it's equal to another instance of the same class.
+Any class or struct that implements the <xref:System.IEquatable%601> interface must contain a definition for an <xref:System.IEquatable%601.Equals%2A> method that matches the signature that the interface specifies. As a result, you can count on a class of type `T` that implements `IEquatable<T>` to contain an `Equals` method with which an instance of this class can determine whether it's equal to another instance of the same class.
 
 The definition of `IEquatable<T>` doesn't provide an implementation for `Equals`. A class or struct can implement multiple interfaces, but a class can only inherit from a single class.
 
@@ -31,7 +31,7 @@ To implement an interface member, the corresponding member of the implementing c
 > [!NOTE]
 > When an interface declares static members, a type implementing that interface may also declare static members with the same signature. Those are distinct and uniquely identified by the type declaring the member. The static member declared in a type *doesn't* override the static member declared in the interface.
 
-A class or struct that implements an interface must provide an implementation for all declared members without a default implementation provide by the interface. However, if a base class implements an interface, any class that's derived from the base class inherits that implementation.
+A class or struct that implements an interface must provide an implementation for all declared members without a default implementation provided by the interface. However, if a base class implements an interface, any class that's derived from the base class inherits that implementation.
 
 The following example shows an implementation of the <xref:System.IEquatable%601> interface. The implementing class, `Car`, must provide an implementation of the <xref:System.IEquatable%601.Equals%2A> method.
 
@@ -48,6 +48,6 @@ A base class can also implement interface members by using virtual members. In t
 An interface has the following properties:
 
 - In C# versions earlier than 8.0, an interface is like an abstract base class with only abstract members. A class or struct that implements the interface must implement all its members.
-- Beginning with C# 8.0, an interface may define default implementations for some or all of its members. A class or struct that implements the interface doesn't have to implement members that have default implementations. For more information, see [default interface methods](../../whats-new/tutorials/default-interface-methods-versions.md).
+- Beginning with C# 8.0, an interface may define default implementations for some or all of its members. A class or struct that implements the interface doesn't have to implement members that have default implementations. For more information, see [default interface methods](../../advanced-topics/interface-implementation/default-interface-methods-versions.md).
 - An interface can't be instantiated directly. Its members are implemented by any class or struct that implements the interface.
 - A class or struct can implement multiple interfaces. A class can inherit a base class and also implement one or more interfaces.
