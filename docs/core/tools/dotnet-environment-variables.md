@@ -1,14 +1,14 @@
 ---
 title: .NET environment variables
 description: Learn about the environment variables that you can use to configure the .NET SDK, .NET CLI, and .NET runtime.
-ms.date: 05/11/2022
+ms.date: 11/08/2023
 ---
 
 # .NET environment variables
 
 **This article applies to:** ✔️ .NET Core 3.1 SDK and later versions
 
-In this article, you'll learn about the environment variables used by .NET SDK, .NET CLI, and .NET runtime. Some environment variables are used by the .NET runtime, while others are only used by the .NET SDK and .NET CLI. Some environment variables are used by all.
+In this article, you'll learn about the environment variables used by .NET. Some environment variables are used by the .NET runtime, while others are only used by the .NET SDK and .NET CLI. Some environment variables are used by all three components.
 
 ## .NET runtime environment variables
 
@@ -82,12 +82,12 @@ Socket continuations are dispatched to the <xref:System.Threading.ThreadPool?dis
 > [!NOTE]
 > This setting can make performance worse if there is expensive work that will end up holding onto the IO thread for longer than needed. Test to make sure this setting helps performance.
 
-Using TechEmpower benchmarks that generate a lot of small socket reads and writes under a very high load, a single socket engine is capable of keeping busy up to thirty x64 and eight ARM64 CPU cores. The vast majority of real-life scenarios will never generate such a huge load (hundreds of thousands of requests per second),
+Using TechEmpower benchmarks that generate a lot of small socket reads and writes under a very high load, a single socket engine is capable of keeping busy up to thirty x64 and eight Arm64 CPU cores. The vast majority of real-life scenarios will never generate such a huge load (hundreds of thousands of requests per second),
 and having a single producer is almost always enough. However, to be sure that extreme loads can be handled, you can use `DOTNET_SYSTEM_NET_SOCKETS_THREAD_COUNT` to override the calculated value. When not overridden, the following value is used:
 
 - When `DOTNET_SYSTEM_NET_SOCKETS_INLINE_COMPLETIONS` is `1`, the <xref:System.Environment.ProcessorCount?displayProperty=nameWithType> value is used.
 - When `DOTNET_SYSTEM_NET_SOCKETS_INLINE_COMPLETIONS` is not `1`, <xref:System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture?displayProperty=nameWithType> is evaluated:
-  - When ARM or ARM64 the cores per engine value is set to `8`, otherwise `30`.
+  - When Arm or Arm64 the cores per engine value is set to `8`, otherwise `30`.
 - Using the determined cores per engine, the maximum value of either `1` or <xref:System.Environment.ProcessorCount?displayProperty=nameWithType> over the cores per engine.
 
 ### `DOTNET_SYSTEM_NET_DISABLEIPV6`
@@ -137,7 +137,7 @@ For more information, see [Investigating JIT and GC Hole stress](https://github.
 
 #### JIT memory barriers
 
-The code generator for ARM64 allows all `MemoryBarriers` instructions to be removed by setting `DOTNET_JitNoMemoryBarriers` to `1`.
+The code generator for Arm64 allows all `MemoryBarriers` instructions to be removed by setting `DOTNET_JitNoMemoryBarriers` to `1`.
 
 ### `DOTNET_RUNNING_IN_CONTAINER` and `DOTNET_RUNNING_IN_CONTAINERS`
 
@@ -167,7 +167,19 @@ Configures the runtime to pause during startup and wait for the _Diagnostics IPC
 
 ### `DOTNET_EnableDiagnostics`
 
-When set to `1`, enables debugging, profiling, and other diagnostics via the [Diagnostic Port](../diagnostics/diagnostic-port.md). Defaults to 1.
+When set to `0`, disables debugging, profiling, and other diagnostics via the [Diagnostic Port](../diagnostics/diagnostic-port.md) and can't be overridden by other diagnostics settings. Defaults to `1`.
+
+### `DOTNET_EnableDiagnostics_IPC`
+
+Starting with .NET 8, when set to `0`, disables the [Diagnostic Port](../diagnostics/diagnostic-port.md) and can't be overridden by other diagnostics settings. Defaults to `1`.
+
+### `DOTNET_EnableDiagnostics_Debugger`
+
+Starting with .NET 8, when set to `0`, disables debugging and can't be overridden by other diagnostics settings. Defaults to `1`.
+
+### `DOTNET_EnableDiagnostics_Profiler`
+
+Starting with .NET 8, when set to `0`, disables profiling and can't be overridden by other diagnostics settings. Defaults to `1`.
 
 ### EventPipe variables
 
@@ -179,9 +191,85 @@ See [EventPipe environment variables](../diagnostics/eventpipe.md#trace-using-en
 
 ## .NET SDK and CLI environment variables
 
-### `DOTNET_ROOT`, `DOTNET_ROOT(x86)`
+### `DOTNET_ROOT`, `DOTNET_ROOT(x86)`, `DOTNET_ROOT_X86`, `DOTNET_ROOT_X64`
 
-Specifies the location of the .NET runtimes, if they are not installed in the default location. The default location on Windows is `C:\Program Files\dotnet`. The default location on Linux and macOS is `/usr/share/dotnet`. This environment variable is used only when running apps via generated executables (apphosts). `DOTNET_ROOT(x86)` is used instead when running a 32-bit executable on a 64-bit OS.
+Specifies the location of the .NET runtimes, if they are not installed in the default location. The default location on Windows is `C:\Program Files\dotnet`. The default location on macOS is `/usr/local/share/dotnet`. The default location for the x64 runtimes on an arm64 OS is under an x64 subfolder (so `C:\Program Files\dotnet\x64` on windows and `/usr/local/share/dotnet/x64` on macOS. The default location on Linux varies depending on distro and installment method. The default location on Ubuntu 22.04 is `/usr/share/dotnet` (when installed from `packages.microsoft.com`) or `/usr/lib/dotnet` (when installed from Jammy feed). For more information, see the following resources:
+
+- [Troubleshoot app launch failures](../runtime-discovery/troubleshoot-app-launch.md?pivots=os-linux)
+- GitHub issue [dotnet/core#7699](https://github.com/dotnet/core/issues/7699)
+- GitHub issue [dotnet/runtime#79237](https://github.com/dotnet/runtime/issues/79237)
+
+This environment variable is used only when running apps via generated executables (apphosts). `DOTNET_ROOT(x86)` is used instead when running a 32-bit executable on a 64-bit OS. `DOTNET_ROOT_X64` is used instead when running a 64-bit executable on an ARM64 OS.
+
+### `DOTNET_HOST_PATH`
+
+Specifies the absolute path to a `dotnet` host (`dotnet.exe` on Windows, `dotnet` on Linux and macOS) that was used to launch the currently-running `dotnet` process. This is used by the .NET SDK to help tools that run during .NET SDK commands ensure they use the same `dotnet` runtime for any child `dotnet` processes they create for the duration of the command. Tools and MSBuild Tasks within the SDK that invoke binaries via the `dotnet` host are expected to honor this environment variable to ensure a consistent experience.
+
+Tools that invoke `dotnet` during an SDK command should use the following algorithm to locate it:
+
+- if `DOTNET_HOST_PATH` is set, use that value directly
+- otherwise, rely on `dotnet` via the system's `PATH`
+
+> [!NOTE]
+> `DOTNET_HOST_PATH` is not a general solution for locating the `dotnet` host. It is only intended to be used by tools that are invoked by the .NET SDK.
+
+### `DOTNET_LAUNCH_PROFILE`
+
+The [dotnet run](dotnet-run.md) command sets this variable to the selected launch profile.
+
+Given the following _launchSettings.json_ file:
+
+```json
+{
+  "profiles": {
+    "First": {
+      "commandName": "Project",
+    },
+    "Second": {
+      "commandName": "Project",
+    }
+  }
+}
+```
+
+And the following _Program.cs_ file:
+
+```csharp
+var value = Environment.GetEnvironmentVariable("DOTNET_LAUNCH_PROFILE");
+Console.WriteLine($"DOTNET_LAUNCH_PROFILE={value}");
+```
+
+The following scenarios produce the output shown:
+
+- Launch profile specified and exists
+
+  ```dotnetcli
+  $ dotnet run --launch-profile First
+  DOTNET_LAUNCH_PROFILE=First
+  ```
+
+- Launch profile not specified, first one selected
+
+  ```dotnetcli
+  $ dotnet run
+  DOTNET_LAUNCH_PROFILE=First
+  ```
+
+- Launch profile specified but does not exist
+
+  ```dotnetcli
+  $ dotnet run --launch-profile Third
+  The launch profile "Third" could not be applied.
+  A launch profile with the name 'Third' doesn't exist.
+  DOTNET_LAUNCH_PROFILE=
+  ```
+
+- Launch with no profile
+
+  ```dotnetcli
+  $ dotnet run --no-launch-profile
+  DOTNET_LAUNCH_PROFILE=
+  ```
 
 ### `NUGET_PACKAGES`
 
@@ -205,15 +293,19 @@ Specifies whether to generate an ASP.NET Core certificate. The default value is 
 
 ### `DOTNET_ADD_GLOBAL_TOOLS_TO_PATH`
 
-Specifies whether to add global tools to the `PATH` environment variable. the default is `true`. To not add global tools to the path, set to `0`, `false`, or `no`.
+Specifies whether to add global tools to the `PATH` environment variable. The default is `true`. To not add global tools to the path, set to `0`, `false`, or `no`.
 
 ### `DOTNET_CLI_TELEMETRY_OPTOUT`
 
-Specifies whether data about the .NET tools usage is collected and sent to Microsoft. Set to `true` to opt-out of the telemetry feature (values `true`, `1`, or `yes` accepted). Otherwise, set to `false` to opt into the telemetry features (values `false`, `0`, or `no` accepted). If not set, the default is `false` and the telemetry feature is active.
+Specifies whether data about the .NET tools usage is collected and sent to Microsoft. Set to `true` to opt-out of the telemetry feature (values `true`, `1`, or `yes` accepted). Otherwise, set to `false` to opt in to the telemetry features (values `false`, `0`, or `no` accepted). If not set, the default is `false` and the telemetry feature is active.
 
 ### `DOTNET_SKIP_FIRST_TIME_EXPERIENCE`
 
 If `DOTNET_SKIP_FIRST_TIME_EXPERIENCE` is set to `true`, the `NuGetFallbackFolder` won't be expanded to disk and a shorter welcome message and telemetry notice will be shown.
+
+> [!NOTE]
+> This environment variable is no longer supported in .NET Core 3.0 and later.
+> Use [`DOTNET_NOLOGO`](#dotnet_nologo) as a replacement.
 
 ### `DOTNET_MULTILEVEL_LOOKUP`
 
@@ -224,19 +316,21 @@ Specifies whether the .NET runtime, shared framework, or SDK are resolved from t
 
 ### `DOTNET_ROLL_FORWARD`
 
-Determines roll forward behavior. For more information, see the `--roll-forward` option earlier in this article.
+Determines roll forward behavior. For more information, see [the `--roll-forward` option for the `dotnet` command](dotnet.md#rollforward).
 
 ### `DOTNET_ROLL_FORWARD_TO_PRERELEASE`
 
 If set to `1` (enabled), enables rolling forward to a pre-release version from a release version. By default (`0` - disabled), when a release version of .NET runtime is requested, roll-forward will only consider installed release versions.
 
-For more information, see [Roll forward](../whats-new/dotnet-core-3-0.md#major-version-runtime-roll-forward).
+For more information, see [the `--roll-forward` option for the `dotnet` command](dotnet.md#rollforward).
 
 ### `DOTNET_ROLL_FORWARD_ON_NO_CANDIDATE_FX`
 
-Disables minor version roll forward, if set to `0`. For more information, see [Roll forward](../whats-new/dotnet-core-2-1.md#roll-forward).
+Disables minor version roll forward, if set to `0`. This setting is superseded in .NET Core 3.0 by `DOTNET_ROLL_FORWARD`. The new settings should be used instead.
 
-This setting is superseded in .NET Core 3.0 by `DOTNET_ROLL_FORWARD`. The new settings should be used instead.
+### `DOTNET_CLI_FORCE_UTF8_ENCODING`
+
+Forces the use of UTF-8 encoding in the console, even for older versions of Windows 10 that don't fully support UTF-8. For more information, see [SDK no longer changes console encoding when finished](../compatibility/sdk/8.0/console-encoding-fix.md).
 
 ### `DOTNET_CLI_UI_LANGUAGE`
 
@@ -268,6 +362,14 @@ Specifies a directory to which a single-file application is extracted before it 
 
 For more information, see [Single-file executables](../whats-new/dotnet-core-3-0.md#single-file-executables).
 
+### `DOTNET_CLI_HOME`
+
+Specifies the location that supporting files for .NET CLI commands should be written to. For example:
+
+- User-writable paths for workload packs, manifests, and other supporting data.
+- First-run sentinel/lock files for aspects of the .NET CLI's first-run migrations and notification experiences.
+- The default .NET local tool installation location.
+
 ### `DOTNET_CLI_CONTEXT_*`
 
 - `DOTNET_CLI_CONTEXT_VERBOSE`: To enable a verbose context, set to `true`.
@@ -279,20 +381,24 @@ Disables background download of advertising manifests for workloads. Default is 
 
 ### `DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_INTERVAL_HOURS`
 
-Specifies the minimum number of hours between background downloads of advertising manifests for workloads. Default is `24` - no more frequently than once a day. For more information, see [Advertising manifests](dotnet-workload-install.md#advertising-manifests).
+Specifies the minimum number of hours between background downloads of advertising manifests for workloads. The default is `24`, which is no more frequently than once a day. For more information, see [Advertising manifests](dotnet-workload-install.md#advertising-manifests).
+
+### `DOTNET_TOOLS_ALLOW_MANIFEST_IN_ROOT`
+
+Specifies whether .NET SDK local tools search for tool manifest files in the root folder on Windows. The default is `false`.
 
 ### `COREHOST_TRACE`
 
 Controls diagnostics tracing from the hosting components, such as `dotnet.exe`, `hostfxr`, and `hostpolicy`.
 
-* `COREHOST_TRACE=[0/1]` - default is `0` - tracing disabled. If set to `1`, diagnostics tracing is enabled.
-* `COREHOST_TRACEFILE=<file path>` - has an effect only if tracing is enabled by setting `COREHOST_TRACE=1`. When set, the tracing information is written to the specified file; otherwise, the trace information is written to `stderr`.
-* `COREHOST_TRACE_VERBOSITY=[1/2/3/4]` - default is `4`. The setting is used only when tracing is enabled via `COREHOST_TRACE=1`.
+- `COREHOST_TRACE=[0/1]` - default is `0` - tracing disabled. If set to `1`, diagnostics tracing is enabled.
+- `COREHOST_TRACEFILE=<file path>` - has an effect only if tracing is enabled by setting `COREHOST_TRACE=1`. When set, the tracing information is written to the specified file; otherwise, the trace information is written to `stderr`.
+- `COREHOST_TRACE_VERBOSITY=[1/2/3/4]` - default is `4`. The setting is used only when tracing is enabled via `COREHOST_TRACE=1`.
 
-  * `4` - all tracing information is written
-  * `3` - only informational, warning, and error messages are written
-  * `2` - only warning and error messages are written
-  * `1` - only error messages are written
+  - `4` - all tracing information is written
+  - `3` - only informational, warning, and error messages are written
+  - `2` - only warning and error messages are written
+  - `1` - only error messages are written
 
 The typical way to get detailed trace information about application startup is to set `COREHOST_TRACE=1` and`COREHOST_TRACEFILE=host_trace.txt` and then run the application. A new file `host_trace.txt` will be created in the current directory with the detailed information.
 
