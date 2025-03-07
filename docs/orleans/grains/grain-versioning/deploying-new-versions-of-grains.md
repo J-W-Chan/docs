@@ -1,7 +1,7 @@
 ---
 title: Deploy new version of grains
 description: Learn how to deploy new version of grains in .NET Orleans.
-ms.date: 03/16/2022
+ms.date: 07/03/2024
 ---
 
 # Deploy new version of grains
@@ -38,7 +38,7 @@ on newer silos.
 
 ### Use a staging environment
 
-With the staging environment methodology, you will need a second environment (Staging environment), on which you will deploy newer silos before stopping the Production environment. The Production and the Staging silos and clients will be __part of the same cluster__. Silos from both environments must have the ability to talk to each other.
+With the staging environment methodology, you will need a second environment (Staging environment), on which you will deploy newer silos before stopping the Production environment. The Production and the Staging silos and clients will be **part of the same cluster**. Silos from both environments must have the ability to talk to each other.
 
 Recommended configuration:
 
@@ -56,7 +56,6 @@ var silo = new HostBuilder()
         })
     })
     .Build();
-
 ```
 
 Suggested deployment steps:

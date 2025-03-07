@@ -1,7 +1,7 @@
 ---
-title: Create resource files for .NET apps
+title: Create resource files
 description: Make resource files for .NET apps. Build text files with string resources, XML or binary files programmatically, or XML files with string, image, or object data.
-ms.date: 03/23/2022
+ms.date: 03/13/2023
 dev_langs:
   - "csharp"
   - "vb"
@@ -25,7 +25,7 @@ You can include resources, such as strings, images, or object data, in resources
 
 - Create a binary resource (.resources) file programmatically. You can then embed the file in an application executable or an application library by using a language compiler, or you can embed it in a satellite assembly by using [Assembly Linker (Al.exe)](../../framework/tools/al-exe-assembly-linker.md). For more information, see the [Resources in .resources Files](create-resource-files.md#ResourcesFiles) section.
 
-- Use [Visual Studio](https://visualstudio.microsoft.com/vs/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link) to create a resource file and include it in your project. Visual Studio provides a resource editor that lets you add, delete, and modify resources. At compile time, the resource file is automatically converted to a binary .resources file and embedded in an application assembly or satellite assembly. For more information, see the [Resource files in Visual Studio](#VSResFiles) section.
+- Use [Visual Studio](https://visualstudio.microsoft.com/vs/?utm_medium=microsoft&utm_source=learn.microsoft.com&utm_campaign=inline+link) to create a resource file and include it in your project. Visual Studio provides a resource editor that lets you add, delete, and modify resources. At compile time, the resource file is automatically converted to a binary .resources file and embedded in an application assembly or satellite assembly. For more information, see the [Resource files in Visual Studio](#VSResFiles) section.
 
 <a name="TextFiles"></a>
 
@@ -144,7 +144,7 @@ csc greeting.cs -resource:GreetingResources.resources
 </data>
 ```
 
-> [!WARNING]
+> [!CAUTION]
 > Do not use resource files to store passwords, security-sensitive information, or private data.
 
  For resource objects, the **data** tag includes a `type` attribute that indicates the data type of the resource. For objects that consist of binary data, the `data` tag also includes a `mimetype` attribute, which indicates the `base64` type of the binary data.
@@ -169,7 +169,7 @@ csc greeting.cs -resource:GreetingResources.resources
 ```
 
 > [!IMPORTANT]
-> Because .resx files must consist of well-formed XML in a predefined format, we do not recommend working with .resx files manually, particularly when the .resx files contain resources other than strings. Instead, [Visual Studio](https://visualstudio.microsoft.com/vs/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link) provides a transparent interface for creating and manipulating .resx files. For more information, see the [Resource files in Visual Studio](#VSResFiles) section. You can also create and manipulate .resx files programmatically. For more information, see [Work with .resx files programmatically](work-with-resx-files-programmatically.md).
+> Because .resx files must consist of well-formed XML in a predefined format, we do not recommend working with .resx files manually, particularly when the .resx files contain resources other than strings. Instead, [Visual Studio](https://visualstudio.microsoft.com/vs/?utm_medium=microsoft&utm_source=learn.microsoft.com&utm_campaign=inline+link) provides a transparent interface for creating and manipulating .resx files. For more information, see the [Resource files in Visual Studio](#VSResFiles) section. You can also create and manipulate .resx files programmatically. For more information, see [Work with .resx files programmatically](work-with-resx-files-programmatically.md).
 
 <a name="ResourcesFiles"></a>
 
@@ -183,7 +183,7 @@ You can use the <xref:System.Resources.ResourceWriter?displayProperty=nameWithTy
 
 3. Call the <xref:System.Resources.ResourceWriter.Close%2A?displayProperty=nameWithType> method to write the resources to the file and to close the <xref:System.Resources.ResourceWriter> object.
 
-> [!NOTE]
+> [!CAUTION]
 > Do not use resource files to store passwords, security-sensitive information, or private data.
 
  The following example programmatically creates a .resources file named CarResources.resources that stores six strings, an icon, and two application-defined objects (two `Automobile` objects). The `Automobile` class, which is defined and instantiated in the example, is tagged with the <xref:System.SerializableAttribute> attribute, which allows it to be persisted by the binary serialization formatter.
@@ -197,7 +197,7 @@ You can use the <xref:System.Resources.ResourceWriter?displayProperty=nameWithTy
 
 ## Resource files in Visual Studio
 
-When you add a resource file to your [Visual Studio](https://visualstudio.microsoft.com/vs/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link) project, Visual Studio creates a .resx file in the project directory. Visual Studio provides resource editors that enable you to add strings, images, and binary objects. Because the editors are designed to handle static data only, they cannot be used to store programmatic objects; you must write object data to either a .resx file or to a .resources file programmatically. For more information, see [Work with .resx files programmatically](work-with-resx-files-programmatically.md) and the [Resources in .resources files](create-resource-files.md#ResourcesFiles) section.
+When you add a resource file to your [Visual Studio](https://visualstudio.microsoft.com/vs/?utm_medium=microsoft&utm_source=learn.microsoft.com&utm_campaign=inline+link) project, Visual Studio creates a .resx file in the project directory. Visual Studio provides resource editors that enable you to add strings, images, and binary objects. Because the editors are designed to handle static data only, they cannot be used to store programmatic objects; you must write object data to either a .resx file or to a .resources file programmatically. For more information, see [Work with .resx files programmatically](work-with-resx-files-programmatically.md) and the [Resources in .resources files](create-resource-files.md#ResourcesFiles) section.
 
 If you're adding localized resources, give them the same root file name as the main resource file. You should also designate their culture in the file name. For example, if you add a resource file named *Resources.resx*, you might also create resource files named *Resources.en-US.resx* and *Resources.fr-FR.resx* to hold localized resources for the English (United States) and French (France) cultures, respectively. You should also designate your application's default culture. This is the culture whose resources are used if no localized resources for a particular culture can be found.
 

@@ -16,7 +16,7 @@ ms.date: 02/14/2020
 ```dotnetcli
 dotnet tool uninstall <PACKAGE_NAME> -g|--global
 
-dotnet tool uninstall <PACKAGE_NAME> --tool-path <PATH>
+dotnet tool uninstall <PACKAGE_NAME> --tool-path <PATH> [--tool-manifest <PATH>]
 
 dotnet tool uninstall <PACKAGE_NAME>
 
@@ -39,8 +39,6 @@ The `dotnet tool uninstall` command provides a way for you to uninstall .NET too
 
 ## Options
 
-<!-- markdownlint-disable MD012 -->
-
 - **`-g|--global`**
 
   Specifies that the tool to be removed is from a user-wide installation. Can't be combined with the `--tool-path` option. Omitting both `--global` and `--tool-path` specifies that the tool to be removed is a local tool.
@@ -50,6 +48,10 @@ The `dotnet tool uninstall` command provides a way for you to uninstall .NET too
 - **`--tool-path <PATH>`**
 
   Specifies the location where to uninstall the tool. PATH can be absolute or relative. Can't be combined with the `--global` option. Omitting both `--global` and `--tool-path` specifies that the tool to be removed is a local tool.
+
+- **`--tool-manifest <PATH>`**
+
+  Specifies the manifest file that the tool is to be removed from. PATH can be absolute or relative. Can't be combined with the `--global` option.
 
 ## Examples
 

@@ -1,6 +1,6 @@
 ---
 description: Value types vs reference types, kinds of value types, and the built-in value types in C#
-title: "Value types - C# reference"
+title: "Value types"
 ms.date: 01/22/2020
 f1_keywords: 
   - "cs.valuetypes"
@@ -34,7 +34,7 @@ A value type can be one of the two following kinds:
 
 A [nullable value type](nullable-value-types.md) `T?` represents all values of its underlying value type `T` and an additional [null](../keywords/null.md) value. You cannot assign `null` to a variable of a value type, unless it's a nullable value type.
 
-You can use the [`struct` constraint](../../programming-guide/generics/constraints-on-type-parameters.md) to specify that a type parameter is a non-nullable value type. Both structure and enumeration types satisfy the `struct` constraint. Beginning with C# 7.3, you can use `System.Enum` in a base class constraint (that is known as the [enum constraint](../../programming-guide/generics/constraints-on-type-parameters.md#enum-constraints)) to specify that a type parameter is an enumeration type.
+You can use the [`struct` constraint](../../programming-guide/generics/constraints-on-type-parameters.md) to specify that a type parameter is a non-nullable value type. Both structure and enumeration types satisfy the `struct` constraint. You can use `System.Enum` in a base class constraint (that is known as the [enum constraint](../../programming-guide/generics/constraints-on-type-parameters.md#enum-constraints)) to specify that a type parameter is an enumeration type.
 
 ## Built-in value types
 
@@ -47,13 +47,16 @@ C# provides the following built-in value types, also known as *simple types*:
 
 All simple types are structure types and differ from other structure types in that they permit certain additional operations:
 
-- You can use literals to provide a value of a simple type. For example, `'A'` is a literal of the type `char` and `2001` is a literal of the type `int`.
+- You can use literals to provide a value of a simple type.
+<br/>For example, `'A'` is a literal of the type `char`, `2001` is a literal of the type `int` and `12.34m` is a literal of the type `decimal`.
 
-- You can declare constants of the simple types with the [const](../keywords/const.md) keyword. It's not possible to have constants of other structure types.
+- You can declare constants of the simple types with the [const](../keywords/const.md) keyword.
+<br/>For example, you can define `const decimal = 12.34m`.
+<br/>It's not possible to have constants of other structure types.
 
 - Constant expressions, whose operands are all constants of the simple types, are evaluated at compile time.
 
-Beginning with C# 7.0, C# supports [value tuples](value-tuples.md). A value tuple is a value type, but not a simple type.
+A [value tuple](value-tuples.md) is a value type, but not a simple type.
 
 ## C# language specification
 
@@ -65,6 +68,5 @@ For more information, see the following sections of the [C# language specificati
 
 ## See also
 
-- [C# reference](../index.md)
 - <xref:System.ValueType?displayProperty=nameWithType>
 - [Reference types](../keywords/reference-types.md)

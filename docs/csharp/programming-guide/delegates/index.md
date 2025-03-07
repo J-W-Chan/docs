@@ -1,11 +1,10 @@
 ---
-title: "Delegates - C# Programming Guide"
+title: "Delegates"
 description: A delegate in C# is a type that refers to methods with a parameter list and return type. Delegates are used to pass methods as arguments to other methods.
-ms.date: 02/02/2021
+ms.date: 12/20/2024
 helpviewer_keywords: 
   - "C# language, delegates"
   - "delegates [C#]"
-ms.assetid: 97de039b-c76b-4b9c-a27d-8c1e1c8d93da
 ---
 # Delegates (C# Programming Guide)
 
@@ -13,7 +12,7 @@ A [delegate](../../language-reference/builtin-types/reference-types.md) is a typ
 
 Delegates are used to pass methods as arguments to other methods. Event handlers are nothing more than methods that are invoked through delegates. You create a custom method, and a class such as a windows control can call your method when a certain event occurs. The following example shows a delegate declaration:
 
-[!code-csharp[csProgGuideDelegates#20](~/samples/snippets/csharp/VS_Snippets_VBCSharp/csProgGuideDelegates/CS/Delegates.cs#20)]
+:::code language="csharp" source="./snippets/Overview.cs" id="DelegateDeclaration":::
 
 Any method from any accessible class or struct that matches the delegate type can be assigned to the delegate. The method can be either static or an instance method. This flexibility means you can programmatically change method calls, or plug new code into existing classes.
 
@@ -22,13 +21,12 @@ Any method from any accessible class or struct that matches the delegate type ca
 
 This ability to refer to a method as a parameter makes delegates ideal for defining callback methods. You can write a method that compares two objects in your application. That method can be used in a delegate for a sort algorithm. Because the comparison code is separate from the library, the sort method can be more general.
 
-[Function pointers](~/_csharplang/proposals/csharp-9.0/function-pointers.md) were added to C# 9 for similar scenarios, where you need more control over the calling convention. The code associated with a delegate is invoked using a virtual method added to a delegate type. Using function pointers, you can specify different conventions.
+[Function pointers](~/_csharplang/proposals/csharp-9.0/function-pointers.md) support similar scenarios, where you need more control over the calling convention. The code associated with a delegate is invoked using a virtual method added to a delegate type. Using function pointers, you can specify different conventions.
 
 ## Delegates Overview
 
 Delegates have the following properties:
 
-- Delegates are similar to C++ function pointers, but delegates are fully object-oriented, and unlike C++ pointers to member functions, delegates encapsulate both an object instance and a method.
 - Delegates allow methods to be passed as parameters.
 - Delegates can be used to define callback methods.
 - Delegates can be chained together; for example, multiple methods can be called on a single event.
@@ -48,13 +46,7 @@ Delegates have the following properties:
 
 For more information, see [Delegates](~/_csharpstandard/standard/delegates.md) in the [C# Language Specification](~/_csharpstandard/standard/README.md). The language specification is the definitive source for C# syntax and usage.
 
-## Featured Book Chapters
-
-- [Delegates, Events, and Lambda Expressions](/previous-versions/visualstudio/visual-studio-2008/ff518994(v=orm.10)) in [C# 3.0 Cookbook, Third Edition: More than 250 solutions for C# 3.0 programmers](/previous-versions/visualstudio/visual-studio-2008/ff518995(v=orm.10))
-- [Delegates and Events](/previous-versions/visualstudio/visual-studio-2008/ff652490(v=orm.10)) in [Learning C# 3.0: Fundamentals of C# 3.0](/previous-versions/visualstudio/visual-studio-2008/ff652493(v=orm.10))
-
 ## See also
 
 - <xref:System.Delegate>
-- [C# Programming Guide](../index.md)
 - [Events](../events/index.md)
