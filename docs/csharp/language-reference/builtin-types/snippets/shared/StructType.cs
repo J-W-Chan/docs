@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace builtin_types
+﻿namespace builtin_types
 {
     public static class StructType
     {
@@ -125,6 +123,23 @@ namespace builtin_types
             public ReadOnlySpan<double> Values { get; }
         }
         // </SnippetReadonlyRef>
+
+        // <SnippetRefField>
+        public ref struct RefFieldExample
+        {
+            private ref int number;
+
+            public int GetNumber()
+            {
+                if (System.Runtime.CompilerServices.Unsafe.IsNullRef(ref number))
+                {
+                    throw new InvalidOperationException("The number ref field is not initialized.");
+                }
+
+                return number;
+            }
+        }
+        // </SnippetRefField>
     }
 
     namespace parameterless_constructor
@@ -243,5 +258,32 @@ namespace builtin_types
             }
             // </WithExpression>
         }
+    }
+
+    namespace InlineArrays
+    {
+        // <DeclareInlineArray>
+        [System.Runtime.CompilerServices.InlineArray(10)]
+        public struct CharBuffer
+        {
+            private char _firstElement;
+        }
+        // </DeclareInlineArray>
+
+        // <DeclareInlineArrayWithPointer>
+        [System.Runtime.CompilerServices.InlineArray(10)]
+        public struct CharBufferWithPointer
+        {
+            private unsafe char* _pointerElement;    // CS9184
+        }
+        // </DeclareInlineArrayWithPointer>
+
+        // <DeclareInlineArrayWithReferenceType>
+        [System.Runtime.CompilerServices.InlineArray(10)]
+        public struct CharBufferWithReferenceType
+        {
+            private string _referenceElement;
+        }
+        // </DeclareInlineArrayWithReferenceType>
     }
 }

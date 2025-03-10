@@ -2,17 +2,17 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using IHost host = Host.CreateDefaultBuilder(args).Build();
+using IHost host = Host.CreateApplicationBuilder(args).Build();
 
 // Ask the service provider for the configuration abstraction.
 IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
 
 // Get values from the config given their key and their target type.
-string ipOne = config["IPAddressRange:0"];
-string ipTwo = config["IPAddressRange:1"];
-string ipThree = config["IPAddressRange:2"];
-string versionOne = config["SupportedVersions:v1"];
-string versionThree = config["SupportedVersions:v3"];
+string? ipOne = config["IPAddressRange:0"];
+string? ipTwo = config["IPAddressRange:1"];
+string? ipThree = config["IPAddressRange:2"];
+string? versionOne = config["SupportedVersions:v1"];
+string? versionThree = config["SupportedVersions:v3"];
 
 // Write the values to the console.
 Console.WriteLine($"IPAddressRange:0 = {ipOne}");
