@@ -8,10 +8,11 @@ ms.date: 12/17/2020
 # Well-known EventCounters in .NET
 
 The .NET runtime and libraries implement and publish several [EventCounters](./event-counters.md) that can be used to identify and diagnose various performance issues. This article is a reference on the providers that can be used to monitor these counters and their descriptions.
+See the [well-known metrics reference](built-in-metrics.md) instead if you are working with .NET's newer [System.Diagnostics.Metrics API](metrics.md).
 
 ## System.Runtime counters
 
-The following counters are published as part of .NET runtime (CoreCLR) and are maintained in the [`RuntimeEventSource.cs`](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Diagnostics/Tracing/RuntimeEventSource.cs).
+The following counters are published as part of .NET runtime (CoreCLR) and are maintained in the [_RuntimeEventSource.cs_](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.CoreLib/src/System/Diagnostics/Tracing/RuntimeEventSource.cs).
 
 | Counter | Description | First available in |
 |--|--|--|
@@ -19,7 +20,7 @@ The following counters are published as part of .NET runtime (CoreCLR) and are m
 | :::no-loc text="Allocation Rate"::: (`alloc-rate`) | The number of bytes allocated per update interval | .NET Core 3.1 |
 | :::no-loc text="CPU Usage"::: (`cpu-usage`) | The percent of the process's CPU usage relative to all of the system CPU resources | .NET Core 3.1 |
 | :::no-loc text="Exception Count"::: (`exception-count`) | The number of exceptions that have occurred | .NET Core 3.1 |
-| :::no-loc text="GC Heap Size"::: (`gc-heap-size`) | The number of bytes thought to be allocated based on <xref:System.GC.GetTotalMemory(System.Boolean)?displayProperty=nameWithType> | .NET Core 3.1 |
+| :::no-loc text="GC Heap Size"::: (`gc-heap-size`) | The number of megabytes thought to be allocated based on <xref:System.GC.GetTotalMemory(System.Boolean)?displayProperty=nameWithType> | .NET Core 3.1 |
 | :::no-loc text="Gen 0 GC Count"::: (`gen-0-gc-count`) | The number of times GC has occurred for Gen 0 per update interval | .NET Core 3.1 |
 | :::no-loc text="Gen 0 Size"::: (`gen-0-size`) | The number of bytes for Gen 0 GC | .NET Core 3.1 |
 | :::no-loc text="Gen 1 GC Count"::: (`gen-1-gc-count`) | The number of times GC has occurred for Gen 1 per update interval | .NET Core 3.1 |
@@ -35,14 +36,16 @@ The following counters are published as part of .NET runtime (CoreCLR) and are m
 | :::no-loc text="ThreadPool Completed Work Item Count"::: (`threadpool-completed-items-count`) | The number of work items that have been processed so far in the <xref:System.Threading.ThreadPool> | .NET Core 3.1 |
 | :::no-loc text="ThreadPool Queue Length"::: (`threadpool-queue-length`) | The number of work items that are currently queued to be processed in the <xref:System.Threading.ThreadPool> | .NET Core 3.1 |
 | :::no-loc text="ThreadPool Thread Count"::: (`threadpool-thread-count`) | The number of thread pool threads that currently exist in the <xref:System.Threading.ThreadPool>, based on <xref:System.Threading.ThreadPool.ThreadCount?displayProperty=nameWithType> | .NET Core 3.1 |
-| :::no-loc text="Working Set"::: (`working-set`) | The amount of physical memory mapped to the process context at a point in time base on <xref:System.Environment.WorkingSet?displayProperty=nameWithType> | .NET Core 3.1 |
+| :::no-loc text="Working Set"::: (`working-set`) | The number of megabytes of physical memory mapped to the process context at a point in time based on <xref:System.Environment.WorkingSet?displayProperty=nameWithType> | .NET Core 3.1 |
 | :::no-loc text="IL Bytes Jitted"::: (`il-bytes-jitted`) | The total size of ILs that are JIT-compiled, in bytes | .NET 5 |
-| :::no-loc text="Method Jitted Count"::: (`method-jitted-count`) | The number of methods that are JIT-compiled | .NET 5 |
-| :::no-loc text="GC Committed Bytes"::: (`gc-committed-bytes`) | The number of bytes committed by the GC | .NET 6 |
+| :::no-loc text="Methods Jitted Count"::: (`methods-jitted-count`) | The number of methods that are JIT-compiled | .NET 5 |
+| :::no-loc text="GC Committed Bytes"::: (`gc-committed`) | The number of bytes committed by the GC | .NET 6 |
+| :::no-loc text="Time paused by GC"::: (`total-pause-time-by-gc`) | The total amount of time program execution was paused by the GC | .NET 8 |
+| :::no-loc text="Gen 0 GC Budget"::: (`gen-0-gc-budget`) | The Gen 0 memory budget | .NET 8 |
 
 ## Microsoft.AspNetCore.Hosting counters
 
-The following counters are published as part of [ASP.NET Core](/aspnet/core) and are maintained in [`HostingEventSource.cs`](https://github.com/dotnet/aspnetcore/blob/main/src/Hosting/Hosting/src/Internal/HostingEventSource.cs).
+The following counters are published as part of [ASP.NET Core](/aspnet/core) and are maintained in [_HostingEventSource.cs_](https://github.com/dotnet/aspnetcore/blob/main/src/Hosting/Hosting/src/Internal/HostingEventSource.cs).
 
 | Counter | Description | First available in |
 |--|--|--|
@@ -53,7 +56,7 @@ The following counters are published as part of [ASP.NET Core](/aspnet/core) and
 
 ## Microsoft.AspNetCore.Http.Connections counters
 
-The following counters are published as part of [ASP.NET Core SignalR](/aspnet/core/signalr/introduction) and are maintained in [`HttpConnectionsEventSource.cs`](https://github.com/dotnet/aspnetcore/blob/main/src/SignalR/common/Http.Connections/src/Internal/HttpConnectionsEventSource.cs).
+The following counters are published as part of [ASP.NET Core SignalR](/aspnet/core/signalr/introduction) and are maintained in [_HttpConnectionsEventSource.cs_](https://github.com/dotnet/aspnetcore/blob/main/src/SignalR/common/Http.Connections/src/Internal/HttpConnectionsEventSource.cs).
 
 | Counter | Description | First available in |
 |--|--|--|
@@ -65,7 +68,7 @@ The following counters are published as part of [ASP.NET Core SignalR](/aspnet/c
 
 ## Microsoft-AspNetCore-Server-Kestrel counters
 
-The following counters are published as part of the [ASP.NET Core Kestrel web server](/aspnet/core/fundamentals/servers/kestrel) and are maintained in [`KestrelEventSource.cs`](https://github.com/dotnet/aspnetcore/blob/main/src/Servers/Kestrel/Core/src/Internal/Infrastructure/KestrelEventSource.cs).
+The following counters are published as part of the [ASP.NET Core Kestrel web server](/aspnet/core/fundamentals/servers/kestrel) and are maintained in [_KestrelEventSource.cs_](https://github.com/dotnet/aspnetcore/blob/main/src/Servers/Kestrel/Core/src/Internal/Infrastructure/KestrelEventSource.cs).
 
 | Counter | Description | First available in |
 |--|--|--|
@@ -82,7 +85,7 @@ The following counters are published as part of the [ASP.NET Core Kestrel web se
 
 ## System.Net.Http counters
 
-The following counters are published by the HTTP stack.
+The following counters are published by the HTTP stack and are maintained in [_HttpTelemetry.AnyOS.cs_](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Net.Http/src/System/Net/Http/HttpTelemetry.AnyOS.cs).
 
 | Counter | Description | First available in |
 |--|--|--|
@@ -90,24 +93,27 @@ The following counters are published by the HTTP stack.
 | :::no-loc text="Requests Started Rate"::: (`requests-started-rate`) | The number of requests started per update interval | .NET 5 |
 | :::no-loc text="Requests Failed"::: (`requests-failed`) | The number of failed requests since the process started | .NET 5 |
 | :::no-loc text="Requests Failed Rate"::: (`requests-failed-rate`) | The number of failed requests per update interval | .NET 5 |
-| :::no-loc text="Current Requests"::: (`current-requests`) | Current number of active HTTP requests that have started but not yet completed or failed | .NET 5 |
+| :::no-loc text="Current Requests"::: (`current-requests`) | The current number of active HTTP requests that have started but not yet completed or failed | .NET 5 |
 | :::no-loc text="Current HTTP 1.1 Connections"::: (`http11-connections-current-total`) | The current number of HTTP 1.1 connections that have started but not yet completed or failed | .NET 5 |
 | :::no-loc text="Current HTTP 2.0 Connections"::: (`http20-connections-current-total`) | The current number of HTTP 2.0 connections that have started but not yet completed or failed | .NET 5 |
+| :::no-loc text="Current HTTP 3.0 Connections"::: (`http30-connections-current-total`) | The current number of HTTP 3.0 connections that have started but not yet completed or failed | .NET 7 |
 | :::no-loc text="HTTP 1.1 Requests Queue Duration"::: (`http11-requests-queue-duration`) | The average duration of the time HTTP 1.1 requests spent in the request queue | .NET 5 |
 | :::no-loc text="HTTP 2.0 Requests Queue Duration"::: (`http20-requests-queue-duration`) | The average duration of the time HTTP 2.0 requests spent in the request queue | .NET 5 |
+| :::no-loc text="HTTP 3.0 Requests Queue Duration"::: (`http30-requests-queue-duration`) | The average duration of the time HTTP 3.0 requests spent in the request queue | .NET 7 |
 
 ## System.Net.NameResolution counters
 
-The following counters track metrics related to DNS lookups.
+The following counters track metrics related to DNS lookups and are maintained in [_NameResolutionTelemetry.cs_](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Net.NameResolution/src/System/Net/NameResolutionTelemetry.cs).
 
 | Counter | Description | First available in |
 |--|--|--|
 | :::no-loc text="DNS Lookups Requested"::: (`dns-lookups-requested`) | The number of DNS lookups requested since the process started | .NET 5 |
 | :::no-loc text="Average DNS Lookup Duration"::: (`dns-lookups-duration`) | The average time taken for a DNS lookup | .NET 5 |
+| :::no-loc text="Current DNS Lookups"::: (`current-dns-lookups`) | The current number of DNS lookups that have started but not yet completed or failed | .NET 6 |
 
 ## System.Net.Security counters
 
-The following counters track metrics related to the Transport Layer Security protocol.
+The following counters track metrics related to the Transport Layer Security protocol and are maintained in [_NetSecurityTelemetry.cs_](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Net.Security/src/System/Net/Security/NetSecurityTelemetry.cs).
 
 | Counter | Description | First available in |
 |--|--|--|
@@ -128,12 +134,13 @@ The following counters track metrics related to the Transport Layer Security pro
 
 ## System.Net.Sockets counters
 
-The following counters track metrics related to <xref:System.Net.Sockets.Socket>.
+The following counters track metrics related to <xref:System.Net.Sockets.Socket> and are maintained in [_SocketsTelemetry_](https://github.com/dotnet/runtime/blob/main/src/libraries/System.Net.Sockets/src/System/Net/Sockets/SocketsTelemetry.cs).
 
 | Counter | Description | First available in |
 |--|--|--|
 | :::no-loc text="Outgoing Connections Established"::: (`outgoing-connections-established`) | The total number of outgoing connections established since the process started | .NET 5 |
 | :::no-loc text="Incoming Connections Established"::: (`incoming-connections-established`) | The total number of incoming connections established since the process started | .NET 5 |
+| :::no-loc text="Current Outgoing Connect Attempts"::: (`current-outgoing-connect-attempts`) | The current number of outgoing connect attempts that have started but not yet completed or failed | .NET 7 |
 | :::no-loc text="Bytes Received"::: (`bytes-received`) | The total number of bytes received since the process started | .NET 5 |
 | :::no-loc text="Bytes Sent"::: (`bytes-sent`) | The total number of bytes sent since the process started | .NET 5 |
 | :::no-loc text="Datagrams Received"::: (`datagrams-received`) | The total number of datagrams received since the process started | .NET 5 |

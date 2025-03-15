@@ -17,8 +17,8 @@ ms.date: 09/10/2021
 dotnet workload restore [<PROJECT | SOLUTION>]
     [--configfile <FILE>] [--disable-parallel]
     [--ignore-failed-sources] [--include-previews] [--interactive]
-    [--no-cache] [--skip-manifest-update]
-    [-s|--source <SOURCE>] [--temp-dir <PATH>] [-v|--verbosity <LEVEL>]
+    [--no-cache] [--skip-manifest-update] [-s|--source <SOURCE>] 
+    [--temp-dir <PATH>] [-v|--verbosity <LEVEL>] [--version <VERSION>]
 
 dotnet workload restore -?|-h|--help
 ```
@@ -36,8 +36,6 @@ For more information about the `dotnet workload` commands, see the [dotnet workl
   The project or solution file to install workloads for. If a file is not specified, the command searches the current directory for one.
 
 ## Options
-
-<!-- markdownlint-disable MD012 -->
 
 [!INCLUDE [config-file](../../../includes/cli-configfile.md)]
 
@@ -61,6 +59,7 @@ For more information about the `dotnet workload` commands, see the [dotnet workl
 
 [!INCLUDE [verbosity](../../../includes/cli-verbosity-minimal.md)]
 
+[!INCLUDE [version](../../../includes/cli-version.md)]
 
 ## Example
 

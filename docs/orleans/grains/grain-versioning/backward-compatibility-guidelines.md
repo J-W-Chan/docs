@@ -1,7 +1,7 @@
 ---
 title: Backward compatibility guidelines
 description: Learn the backward compatibility guidelines in .NET Orleans.
-ms.date: 03/15/2022
+ms.date: 07/03/2024
 ---
 
 # Backward compatibility guidelines
@@ -72,8 +72,8 @@ public interface IMyGrain : IGrainWithIntegerKey
 [Version(2)]
 public interface IMyGrain : IGrainWithIntegerKey
 {
-    // return y - x
-    Task<int> Subtract(int y, int x);
+    // return a - b
+    Task<int> Subtract(int b, int a);
 }
 ```
 

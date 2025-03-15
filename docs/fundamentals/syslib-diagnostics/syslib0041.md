@@ -2,6 +2,8 @@
 title: SYSLIB0041 warning - Rfc2898DeriveBytes constructors with default hash algorithm and iteration counts are obsolete
 description: Learn about the obsoletion of some Rfc2898DeriveBytes constructors that generates compile-time warning SYSLIB0041.
 ms.date: 04/08/2022
+f1_keywords:
+  - syslib0041
 ---
 # SYSLIB0041: Some Rfc2898DeriveBytes constructors are obsolete
 
@@ -21,4 +23,32 @@ Use a different constructor overload where you can explicitly specify the iterat
 
 If you're using the default iteration count or default hash algorithm, consider moving to more secure values&mdash;that is, a larger iteration count or a newer hash algorithm.
 
-[!INCLUDE [suppress-syslib-warning](includes/suppress-syslib-warning.md)]
+## Suppress a warning
+
+If you must use the obsolete APIs, you can suppress the warning in code or in your project file.
+
+To suppress only a single violation, add preprocessor directives to your source file to disable and then re-enable the warning.
+
+```csharp
+// Disable the warning.
+#pragma warning disable SYSLIB0041
+
+// Code that uses obsolete API.
+// ...
+
+// Re-enable the warning.
+#pragma warning restore SYSLIB0041
+```
+
+To suppress all the `SYSLIB0041` warnings in your project, add a `<NoWarn>` property to your project file.
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+   ...
+   <NoWarn>$(NoWarn);SYSLIB0041</NoWarn>
+  </PropertyGroup>
+</Project>
+```
+
+For more information, see [Suppress warnings](obsoletions-overview.md#suppress-warnings).

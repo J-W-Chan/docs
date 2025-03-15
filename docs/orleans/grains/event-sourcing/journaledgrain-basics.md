@@ -1,15 +1,15 @@
 ---
 title: The JournaledGrain API
 description: Learn the concepts of the JournaledGrain API in .NET Orleans.
-ms.date: 01/31/2022
+ms.date: 07/03/2024
 ---
 
 # JournaledGrain Basics
 
 Journaled grains derive from <xref:Orleans.EventSourcing.JournaledGrain%602>, with the following type parameters:
 
-* The `StateType` represents the state of the grain. It must be a class with a public default constructor.
-* `EventType` is a common supertype for all the events that can be raised for this grain, and can be any class or interface.
+* The `TGrainState` represents the state of the grain. It must be a class with a public default constructor.
+* `TEventBase` is a common supertype for all the events that can be raised for this grain, and can be any class or interface.
 
 All state and event objects should be serializable (because the log-consistency providers may need to persist them, and/or send them in notification messages).
 

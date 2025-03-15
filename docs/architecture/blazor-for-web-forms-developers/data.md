@@ -1,7 +1,7 @@
 ---
 title: Data access and management
 description: Learn how to access and handle data in ASP.NET Web Forms and Blazor.
-author: csharpfritz    
+author: csharpfritz
 ms.author: jefritz
 no-loc: [Blazor]
 ms.date: 04/11/2022
@@ -21,7 +21,7 @@ Data Sources were controls that you could place on a Web Forms page and configur
 
 ![Data Sources](media/data/datasources.png)
 
-ADO.NET is the low-level approach to interacting with a database. Your apps could create a connection to the database with Commands, Recordsets, and Datasets for interacting. The results could then be bound to fields on screen without much code. The drawback of this approach was that each set of ADO.NET objects (`Connection`, `Command`, and `Recordset`) was bound to libraries provided by a database vendor. Use of these components made the code rigid and difficult to migrate to a different database.
+ADO.NET is the low-level approach to interacting with a database. Your apps could create a connection to the database with Commands, Datatables, and Datasets for interacting. The results could then be bound to fields on screen without much code. The drawback of this approach was that each set of ADO.NET objects (`Connection`, `Command`, and `DataTable`) was bound to libraries provided by a database vendor. Use of these components made the code rigid and difficult to migrate to a different database.
 
 ## Entity Framework
 
@@ -48,7 +48,7 @@ public class Product
 }
 ```
 
-Product has a primary key and three additional fields that would be created in our database:  
+Product has a primary key and three additional fields that would be created in our database:
 
 - EF will identify the `Id` property as a primary key by convention.
 - `Name` will be stored in a column configured for text storage. The `[Required]` attribute decorating this property will add a `not null` constraint to help enforce this declared behavior of the property.
@@ -105,9 +105,9 @@ When ASP.NET was first released, SOAP services were the preferred way for web se
 builder.Services.AddHttpClient("github", client =>
 {
     client.BaseAddress = new Uri("http://api.github.com/");
-    // Github API versioning
+    // GitHub API versioning
     client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
-    // Github requires a user-agent
+    // GitHub requires a user-agent
     client.DefaultRequestHeaders.Add("User-Agent", "BlazorWebForms-Sample");
 });
 ```
