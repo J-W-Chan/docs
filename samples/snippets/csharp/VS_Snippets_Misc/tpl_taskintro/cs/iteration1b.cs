@@ -1,7 +1,9 @@
-﻿// <Snippet22>
+// <Snippet22>
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+
+namespace Example.Iterations;
 
 class CustomData
 {
@@ -10,7 +12,7 @@ class CustomData
    public int ThreadNum;
 }
 
-public class Example
+public class IterationTwo
 {
    public static void Main()
    {
@@ -21,8 +23,7 @@ public class Example
          taskArray[i] = Task.Factory.StartNew( (Object obj) => {
                                                  var data = new CustomData() {Name = i, CreationTime = DateTime.Now.Ticks};
                                                  data.ThreadNum = Thread.CurrentThread.ManagedThreadId;
-                                                 Console.WriteLine("Task #{0} created at {1} on thread #{2}.",
-                                                                   data.Name, data.CreationTime, data.ThreadNum);
+                                                 Console.WriteLine($"Task #{data.Name} created at {data.CreationTime} on thread #{data.ThreadNum}.");
                                                },
                                               i );
       }

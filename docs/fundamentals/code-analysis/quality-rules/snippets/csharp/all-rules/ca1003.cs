@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ca1003
 {
@@ -13,7 +13,7 @@ namespace ca1003
 
     public class ClassThatRaisesEvent
     {
-        public event CustomEventHandler SomeEvent;
+        public event CustomEventHandler? SomeEvent;
 
         protected virtual void OnSomeEvent(CustomEventArgs e)
         {
@@ -35,7 +35,7 @@ namespace ca1003
 
         private void HandleEvent(object sender, CustomEventArgs e)
         {
-            Console.WriteLine("Event handled: {0}", e.info);
+            Console.WriteLine($"Event handled: {e.info}");
         }
     }
 
@@ -62,7 +62,7 @@ namespace ca1003_fix
 
     public class ClassThatRaisesEvent
     {
-        public event EventHandler<CustomEventArgs> SomeEvent;
+        public event EventHandler<CustomEventArgs>? SomeEvent;
 
         protected virtual void OnSomeEvent(CustomEventArgs e)
         {
@@ -82,9 +82,9 @@ namespace ca1003_fix
             eventRaiser.SomeEvent += new EventHandler<CustomEventArgs>(HandleEvent);
         }
 
-        private void HandleEvent(object sender, CustomEventArgs e)
+        private void HandleEvent(object? sender, CustomEventArgs e)
         {
-            Console.WriteLine("Event handled: {0}", e.info);
+            Console.WriteLine($"Event handled: {e.info}");
         }
     }
 

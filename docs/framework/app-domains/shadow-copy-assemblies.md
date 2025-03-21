@@ -10,6 +10,8 @@ ms.assetid: de8b8759-fca7-4260-896b-5a4973157672
 ---
 # Shadow Copying Assemblies
 
+[!INCLUDE [net-framework-specific](../includes/net-framework-specific.md)]
+
 Shadow copying enables assemblies that are used in an application domain to be updated without unloading the application domain. This is particularly useful for applications that must be available continuously, such as ASP.NET sites.
 
 > [!IMPORTANT]
@@ -75,7 +77,7 @@ The resulting performance improvement is largest for applications in which assem
 
 ## Obsolete Methods
 
-The <xref:System.AppDomain> class has several methods, such as <xref:System.AppDomain.SetShadowCopyFiles%2A> and <xref:System.AppDomain.ClearShadowCopyPath%2A>, that can be used to control shadow copying on an application domain, but these have been marked obsolete in the .NET Framework version 2.0. The recommended way to configure an application domain for shadow copying is to use the properties of the <xref:System.AppDomainSetup> class.
+The <xref:System.AppDomain> class has several methods, such as <xref:System.AppDomain.SetShadowCopyFiles%2A> and <xref:System.AppDomain.ClearShadowCopyPath%2A>, that can be used to control shadow copying on an application domain, but these have been marked obsolete in .NET Framework version 2.0. The recommended way to configure an application domain for shadow copying is to use the properties of the <xref:System.AppDomainSetup> class.
 
 ## See also
 

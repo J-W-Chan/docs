@@ -31,12 +31,11 @@ In this tutorial, you learn how to:
 
 ## Prerequisites
 
-* A code editor, such as [Visual Studio Code](https://code.visualstudio.com/) with the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp).
-* The [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0).
+[!INCLUDE [Prerequisites](../../../includes/prerequisites-basic.md)]
 
 Or
 
-* [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2022) with the **.NET desktop development** workload installed.
+* [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=learn.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2022) with the **.NET desktop development** workload installed.
 
 ## Create the app
 
@@ -93,8 +92,10 @@ You can use any of the following ways to test while developing a command-line ap
 * Use `dotnet run` and pass option values to the app instead of to the `run` command by including them after `--`, as in the following example:
 
   ```dotnetcli
-  dotnet run -- --file scl.runtimeconfig.json
+  dotnet run -- --file bin/Debug/net6.0/scl.runtimeconfig.json
   ```
+
+The working directory is the project folder (the folder that has the .csproj  file), so the relative path to `scl.runtimeconfig.json` is from the project folder.
 
   In .NET 7.0.100 SDK Preview, you can use the `commandLineArgs` of a *launchSettings.json* file by running the command `dotnet run --launch-profile <profilename>`.
 

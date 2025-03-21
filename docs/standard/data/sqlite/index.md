@@ -11,7 +11,7 @@ Microsoft.Data.Sqlite is a lightweight [ADO.NET](../../../framework/data/adonet/
 
 The latest stable version is available on [NuGet](https://www.nuget.org/packages/Microsoft.Data.Sqlite).
 
-### [.NET Core CLI](#tab/netcore-cli)
+### [.NET CLI](#tab/net-cli)
 
 ```dotnetcli
 dotnet add package Microsoft.Data.Sqlite
@@ -31,8 +31,11 @@ This library implements the common ADO.NET abstractions for connections, command
 
 [!code-csharp[](../../../../samples/snippets/standard/data/sqlite/HelloWorldSample/Program.cs?name=snippet_HelloWorld)]
 
+> [!TIP]
+> You can see the full code for this example at [HelloWorldSample](https://github.com/dotnet/docs/tree/main/samples/snippets/standard/data/sqlite/HelloWorldSample).
+
 ## See also
 
 * [Connection strings](connection-strings.md)
-* [API Reference](../../../../api/index.md?view=msdata-sqlite-3.0&preserve-view=true)
+* [API Reference](/dotnet/api/microsoft.data.sqlite)
 * [SQL Syntax](https://www.sqlite.org/lang.html)

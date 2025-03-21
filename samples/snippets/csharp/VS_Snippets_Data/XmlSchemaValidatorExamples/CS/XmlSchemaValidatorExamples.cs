@@ -1,4 +1,4 @@
-﻿//<snippet1>
+//<snippet1>
 using System;
 using System.Xml;
 using System.Xml.Schema;
@@ -38,17 +38,17 @@ namespace Microsoft.Samples.Xml.Schema
             validator.GetUnspecifiedDefaultAttributes(new ArrayList());
             validator.ValidateEndOfAttributes(null);
 
-            // Get the next exptected element in the bookstore context.
+            // Get the next expected element in the bookstore context.
             XmlSchemaParticle[] particles = validator.GetExpectedParticles();
             XmlSchemaElement nextElement = particles[0] as XmlSchemaElement;
-            Console.WriteLine("Expected Element: '{0}'", nextElement.Name);
+            Console.WriteLine($"Expected Element: '{nextElement.Name}'");
 
             foreach (BookType book in books.Book)
             {
                 // Validate the book element.
                 validator.ValidateElement("book", "http://www.contoso.com/books", null);
 
-                // Get the exptected attributes for the book element.
+                // Get the expected attributes for the book element.
                 Console.Write("\nExpected attributes: ");
                 XmlSchemaAttribute[] attributes = validator.GetExpectedAttributes();
                 foreach (XmlSchemaAttribute attribute in attributes)
@@ -153,13 +153,11 @@ namespace Microsoft.Samples.Xml.Schema
         {
             if (schemaInfo.SchemaElement != null)
             {
-                Console.WriteLine("Element '{0}' with type '{1}' is '{2}'",
-                    schemaInfo.SchemaElement.Name, schemaInfo.SchemaType, schemaInfo.Validity);
+                Console.WriteLine($"Element '{schemaInfo.SchemaElement.Name}' with type '{schemaInfo.SchemaType}' is '{schemaInfo.Validity}'");
             }
             else if (schemaInfo.SchemaAttribute != null)
             {
-                Console.WriteLine("Attribute '{0}' with type '{1}' is '{2}'",
-                    schemaInfo.SchemaAttribute.Name, schemaInfo.SchemaType, schemaInfo.Validity);
+                Console.WriteLine($"Attribute '{schemaInfo.SchemaAttribute.Name}' with type '{schemaInfo.SchemaType}' is '{schemaInfo.Validity}'");
             }
         }
 
@@ -168,10 +166,10 @@ namespace Microsoft.Samples.Xml.Schema
             switch (e.Severity)
             {
                 case XmlSeverityType.Error:
-                    Console.WriteLine("\nError: {0}", e.Message);
+                    Console.WriteLine($"\nError: {e.Message}");
                     break;
                 case XmlSeverityType.Warning:
-                    Console.WriteLine("\nWarning: {0}", e.Message);
+                    Console.WriteLine($"\nWarning: {e.Message}");
                     break;
             }
         }

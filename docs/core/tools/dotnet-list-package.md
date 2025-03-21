@@ -16,10 +16,12 @@ ms.date: 04/13/2022
 ```dotnetcli
 dotnet list [<PROJECT>|<SOLUTION>] package [--config <SOURCE>]
     [--deprecated]
-    [--framework <FRAMEWORK>] [--highest-minor] [--highest-patch]
+    [-f|--framework <FRAMEWORK>] [--highest-minor] [--highest-patch]
     [--include-prerelease] [--include-transitive] [--interactive]
     [--outdated] [--source <SOURCE>] [-v|--verbosity <LEVEL>]
     [--vulnerable]
+    [--format <console|json>]
+    [--output-version <VERSION>]
 
 dotnet list package -h|--help
 ```
@@ -72,8 +74,6 @@ The project or solution file to operate on. If not specified, the command search
 
 ## Options
 
-<!-- markdownlint-disable MD012 -->
-
 - **`--config <SOURCE>`**
 
   The NuGet sources to use when searching for newer packages. Requires the `--outdated` option.
@@ -82,9 +82,9 @@ The project or solution file to operate on. If not specified, the command search
 
   Displays packages that have been deprecated.
   
-- **`--framework <FRAMEWORK>`**
+- **`-f|--framework <FRAMEWORK>`**
 
-  Displays only the packages applicable for the specified [target framework](../../standard/frameworks.md). To specify multiple frameworks, repeat the option multiple times. For example: `--framework net6.0 --framework netstandard2.0`.
+  Displays only the packages applicable for the specified [target framework](../../standard/frameworks.md). To specify multiple frameworks, repeat the option multiple times. For example: `--framework net6.0 --framework netstandard2.0`. The short form of the option (`-f`) is available starting in .NET 9 SDK.
 
 [!INCLUDE [help](../../../includes/cli-help.md)]
 
@@ -118,7 +118,18 @@ The project or solution file to operate on. If not specified, the command search
 
 - **`--vulnerable`**
 
-  Lists packages that have known vulnerabilities. Cannot be combined with `--deprecated` or `--outdated` options. Nuget.org is the source of information about vulnerabilities. For more information, see [Vulnerabilities](/nuget/api/registration-base-url-resource) and [How to Scan NuGet Packages for Security Vulnerabilities](https://devblogs.microsoft.com/nuget/how-to-scan-nuget-packages-for-security-vulnerabilities/).
+  Lists packages that have known vulnerabilities. Cannot be combined with `--deprecated` or `--outdated` options.
+  Use the `<AuditSources>` property in your configuration file to specify your source of vulnerability data, which is acquired from the [VulnerabilityInfo](/nuget/api/vulnerability-info) resource.
+  If `<AuditSources>` is not specified, the specified `<PackageSources>` are used to load vulnerability data.
+  For more information, see [Audit sources](/nuget/concepts/auditing-packages#audit-sources) and [How to scan NuGet packages for security vulnerabilities](https://devblogs.microsoft.com/nuget/how-to-scan-nuget-packages-for-security-vulnerabilities/).
+
+- **`--format <console|json>`**
+
+  Sets the report output format. Allowed values are `console`, `json`.  Defaults to `console`. Available starting in .NET SDK 7.0.200.
+
+- **`--output-version <VERSION>`**
+
+  Sets the report output version. Allowed value is `1`. Defaults to `1`. Requires the `--format json` option. When a new JSON version is available, the command will produce the new format by default. This option will let you specify that the command should produce an earlier format. Available starting in .NET SDK 7.0.200.
 
 ## Examples
 
@@ -138,4 +149,28 @@ The project or solution file to operate on. If not specified, the command search
 
   ```dotnetcli
   dotnet list package --framework netcoreapp3.0
+  ```
+
+- List package references in machine readable json output format:
+
+  ```dotnetcli
+  dotnet list package --format json
+  ```
+
+- List package references for a specific target framework in machine readable json output format:
+
+  ```dotnetcli
+   dotnet list package --framework netcoreapp3.0 --format json
+  ```
+
+- Save machine readable json output of package references, including transitive dependency and vulnerability details into a file:
+
+  ```dotnetcli
+  dotnet list package --include-transitive --vulnerable --format json >> dependencyReport.json
+  ```
+
+- List package references in machine readable json output format with output version 1:
+
+  ```dotnetcli
+  dotnet list package --format json --output-version 1
   ```

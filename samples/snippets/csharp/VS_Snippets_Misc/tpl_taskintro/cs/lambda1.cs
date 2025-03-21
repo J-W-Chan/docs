@@ -1,9 +1,9 @@
-﻿// <Snippet1>
+// <Snippet1>
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-public class Example
+public class Lambda
 {
    public static void Main()
    {
@@ -15,12 +15,14 @@ public class Example
       taskA.Start();
 
       // Output a message from the calling thread.
-      Console.WriteLine("Hello from thread '{0}'.",
-                        Thread.CurrentThread.Name);
+      Console.WriteLine($"Hello from thread '{Thread.CurrentThread.Name}'.");
       taskA.Wait();
    }
 }
-// The example displays output like the following:
+// The example displays output as follows:
 //       Hello from thread 'Main'.
 //       Hello from taskA.
+// or
+//       Hello from taskA.
+//       Hello from thread 'Main'.
 // </Snippet1>

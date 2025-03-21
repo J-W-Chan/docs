@@ -1,4 +1,4 @@
-﻿
+
 //  Copyright (c) Microsoft Corporation.  All Rights Reserved.
 
 using System;
@@ -13,7 +13,7 @@ using System.Text;
 
 namespace Microsoft.ServiceModel.Samples
 {
-    // Define the purchas order line item.
+    // Define the purchase order line item.
     [DataContract]
     public class PurchaseOrderLineItem
     {
@@ -139,8 +139,8 @@ namespace Microsoft.ServiceModel.Samples
         {
             // <Snippet1>
             MsmqMessageProperty mqProp = OperationContext.Current.IncomingMessageProperties[MsmqMessageProperty.Name] as MsmqMessageProperty;
-            Console.WriteLine("Abort count: {0} ", mqProp.AbortCount);
-            Console.WriteLine("Move count: {0} ", mqProp.MoveCount);
+            Console.WriteLine($"Abort count: {mqProp.AbortCount} ");
+            Console.WriteLine($"Move count: {mqProp.MoveCount} ");
             // code to submit purchase order ...
             // </Snippet1>
 
@@ -149,7 +149,7 @@ namespace Microsoft.ServiceModel.Samples
             if (randomNumber % 2 == 0)
             {
                 Orders.Add(po);
-                Console.WriteLine("Processing {0} ", po);
+                Console.WriteLine($"Processing {po} ");
             }
             else
             {

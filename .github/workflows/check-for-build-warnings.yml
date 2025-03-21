@@ -4,13 +4,24 @@ on:
   pull_request_target:
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read
+
 jobs:
   status_checker_job:
     name: Look for build warnings
     runs-on: ubuntu-latest
     permissions:
-        statuses: write
+        statuses: read
+        pull-requests: write
     steps:
-    - uses: dotnet/docs-actions/actions/status-checker@main
+    - name: Harden Runner
+      uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        egress-policy: audit
+
+    - uses: dotnet/docs-tools/actions/status-checker@main
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        docs_path: "docs"
+        url_base_path: "dotnet"

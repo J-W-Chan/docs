@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json.Serialization;
 
 namespace builtin_types
@@ -41,17 +38,17 @@ namespace builtin_types
         // <ImmutableRecord>
         public record Person
         {
-            public string FirstName { get; init; } = default!;
-            public string LastName { get; init; } = default!;
+            public required string FirstName { get; init; }
+            public required string LastName { get; init; }
         };
         // </ImmutableRecord>
 
         // <ImmutableRecordStruct>
         public record struct Point
         {
-            public double X {  get; init; }
-            public double Y {  get; init; }
-            public double Z {  get; init; }
+            public double X { get; init; }
+            public double Y { get; init; }
+            public double Z { get; init; }
         }
         // </ImmutableRecordStruct>
     }
@@ -61,8 +58,8 @@ namespace builtin_types
         // <MutableRecord>
         public record Person
         {
-            public string FirstName { get; set; } = default!;
-            public string LastName { get; set; } = default!;
+            public required string FirstName { get; set; }
+            public required string LastName { get; set; }
         };
         // </MutableRecord>
 
@@ -86,7 +83,7 @@ namespace builtin_types
         // <MixedSyntax>
         public record Person(string FirstName, string LastName)
         {
-            public string[] PhoneNumbers { get; init; } = Array.Empty<string>();
+            public string[] PhoneNumbers { get; init; } = [];
         };
         // </MixedSyntax>
     }
@@ -105,8 +102,8 @@ namespace builtin_types
         /// map to the JSON elements "firstName" and "lastName" when
         /// serialized or deserialized.
         /// </remarks>
-        public record Person([property: JsonPropertyName("firstName")]string FirstName, 
-            [property: JsonPropertyName("lastName")]string LastName);
+        public record Person([property: JsonPropertyName("firstName")] string FirstName, 
+            [property: JsonPropertyName("lastName")] string LastName);
         // </PositionalAttributes>
 
     }
@@ -145,6 +142,26 @@ namespace builtin_types
 
             }
             // </PositionalWithManualProperty>
+        }
+    }
+
+    namespace positionalwithmanualfield
+    {
+        public static class Example
+        {
+            // <PositionalWithManualField>
+            public record Person(string FirstName, string LastName, string Id)
+            {
+                internal readonly string Id = Id; // this.Id set to parameter Id
+            }
+
+            public static void Main()
+            {
+                Person person = new("Nancy", "Davolio", "12345");
+                Console.WriteLine(person.FirstName); //output: Nancy
+
+            }
+            // </PositionalWithManualField>
         }
     }
 

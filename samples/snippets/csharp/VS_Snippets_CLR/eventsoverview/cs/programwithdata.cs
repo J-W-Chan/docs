@@ -1,9 +1,9 @@
-﻿// <snippet6>
+// <snippet6>
 using System;
 
-namespace ConsoleApplication1
+namespace ConsoleApplication3
 {
-    class Program
+    class ProgramThree
     {
         static void Main(string[] args)
         {
@@ -20,7 +20,7 @@ namespace ConsoleApplication1
 
         static void c_ThresholdReached(object sender, ThresholdReachedEventArgs e)
         {
-            Console.WriteLine("The threshold of {0} was reached at {1}.", e.Threshold,  e.TimeReached);
+            Console.WriteLine($"The threshold of {e.Threshold} was reached at {e.TimeReached}.");
             Environment.Exit(0);
         }
     }

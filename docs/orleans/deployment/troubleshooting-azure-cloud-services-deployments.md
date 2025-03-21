@@ -1,7 +1,7 @@
 ---
 title: Troubleshoot Azure Cloud Service deployments
 description: Learn how to troubleshoot an Orleans app with Azure Cloud Service deployment.
-ms.date: 03/09/2022
+ms.date: 07/03/2024
 ---
 
 # Troubleshoot Azure Cloud Service deployments
@@ -50,7 +50,7 @@ role recycling. Check the logs for more information. Visual Studio provides some
 
 ## How to check logs
 
-- Use the cloud explorer in Visual Studio to navigate to the appropriate storage table or blob in the storage account. The WADLogsTable is a good starting point for looking at the logs.
+- Use the Cloud Explorer in Visual Studio to navigate to the appropriate storage table or blob in the storage account. The WADLogsTable is a good starting point for looking at the logs.
 - You might only be logging errors. If you want informational logs as well, you will need to modify the configuration to set the logging severity level.
 
 Programmatic configuration:

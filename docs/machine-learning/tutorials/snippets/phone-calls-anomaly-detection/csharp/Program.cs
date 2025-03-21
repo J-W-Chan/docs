@@ -1,4 +1,4 @@
-﻿// <SnippetAddUsings>
+// <SnippetAddUsings>
 using Microsoft.ML;
 using Microsoft.ML.TimeSeries;
 using PhoneCallsAnomalyDetection;
@@ -38,7 +38,7 @@ int DetectPeriod(MLContext mlContext, IDataView phoneCalls)
     // </SnippetDetectSeasonality>
 
     // <SnippetDisplayPeriod>
-    Console.WriteLine("Period of the series is: {0}.", period);
+    Console.WriteLine($"Period of the series is: {period}.");
     // </SnippetDisplayPeriod>
 
     return period;
@@ -78,18 +78,17 @@ void DetectAnomaly(MLContext mlContext, IDataView phoneCalls, int period)
 
     foreach (var p in predictions)
     {
-        if (p.Prediction[0] == 1)
+        if (p.Prediction is not null)
         {
-            Console.WriteLine("{0},{1},{2},{3},{4},  <-- alert is on! detected anomaly", index,
-                p.Prediction[0], p.Prediction[3], p.Prediction[5], p.Prediction[6]);
-        }
-        else
-        {
-            Console.WriteLine("{0},{1},{2},{3},{4}", index,
-                p.Prediction[0], p.Prediction[3], p.Prediction[5], p.Prediction[6]);
+            string output;
+            if (p.Prediction[0] == 1)
+                output = "{0},{1},{2},{3},{4},  <-- alert is on! detected anomaly";
+            else
+                output = "{0},{1},{2},{3},{4}";
+
+            Console.WriteLine(output, index, p.Prediction[0], p.Prediction[3], p.Prediction[5], p.Prediction[6]);
         }
         ++index;
-
     }
 
     Console.WriteLine("");

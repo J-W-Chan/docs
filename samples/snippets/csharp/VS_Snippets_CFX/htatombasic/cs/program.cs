@@ -1,4 +1,4 @@
-﻿// <Snippet12>
+// <Snippet12>
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,7 +30,7 @@ namespace Service
             SyndicationFeed feed = new SyndicationFeed("My Blog Feed", "This is a test feed", new Uri("http://SomeURI"), "FeedOneID", new DateTimeOffset(DateTime.Now));
             feed.Authors.Add(new SyndicationPerson("someone@microsoft.com"));
             feed.Categories.Add(new SyndicationCategory("How To Sample Code"));
-            feed.Description = new TextSyndicationContent("This is a sample that illistrates how to expose a feed using ATOM with WCF");
+            feed.Description = new TextSyndicationContent("This is a sample that illustrates how to expose a feed using ATOM with WCF");
             // </Snippet2>
 
             // <Snippet3>
@@ -91,7 +91,7 @@ namespace Service
                 Console.WriteLine("Items:");
                 foreach (SyndicationItem item in feed.Items)
                 {
-                    Console.WriteLine("Title: {0}", item.Title.Text);
+                    Console.WriteLine($"Title: {item.Title.Text}");
                     Console.WriteLine("Content: {0}", ((TextSyndicationContent)item.Content).Text);
                 }
                 Console.WriteLine("Press <ENTER> to quit...");
@@ -101,7 +101,7 @@ namespace Service
             }
             catch (CommunicationException ce)
             {
-                Console.WriteLine("An exception occurred: {0}", ce.Message);
+                Console.WriteLine($"An exception occurred: {ce.Message}");
                 svcHost.Abort();
             }
         }

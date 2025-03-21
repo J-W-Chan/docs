@@ -3,7 +3,7 @@ description: "Learn more about: SqlMoney Constructor"
 title: SqlMoney Constructor (System.Data.SqlTypes)
 author: grabyourpitchforks
 ms.date: 04/04/2022
-ms.technology: "dotnet-data"
+ms.subservice: "data-access"
 topic_type:
   - "apiref"
 api_name:
@@ -15,7 +15,7 @@ api_type:
 ---
 # SqlMoney Constructor
 
-Initializes a new instance of the `SqlMoney` struct, where `value` has already been scaled by a ten-thousandth of a currency unit. For example, if __20000__ is provided for the `value` parameter, this `SqlMoney` instance will represent __2__ currency units.
+Initializes a new instance of the `SqlMoney` struct, where `value` has already been scaled by a ten-thousandth of a currency unit. For example, if **20000** is provided for the `value` parameter, this `SqlMoney` instance will represent **2** currency units.
 
 The `ignored` parameter is ignored.
 

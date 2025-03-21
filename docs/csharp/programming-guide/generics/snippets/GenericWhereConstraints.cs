@@ -1,6 +1,6 @@
-using static generics.UnmanagedExtensions;
+using static Generics.UnmanagedExtensions;
 
-namespace generics
+namespace Generics
 {
     // <Snippet1>
     public class AGenericClass<T> where T : IComparable<T> { }
@@ -133,9 +133,14 @@ namespace generics
     }
 
     // <Snippet10>
-    class EmployeeList<T> where T : Employee, IEmployee, System.IComparable<T>, new()
+    class EmployeeList<T> where T : notnull, Employee, IComparable<T>, new()
     {
         // ...
+        public void AddDefault()
+        {
+            T t = new T();
+            // ...
+        }
     }
     // </Snippet10>
 
@@ -275,4 +280,12 @@ namespace generics
             // </Snippet20>
         }
     }
+
+    // <SelfConstraint>
+    public interface IAdditionSubtraction<T> where T : IAdditionSubtraction<T>
+    {
+        static abstract T operator +(T left, T right);
+        static abstract T operator -(T left, T right);
+    }
+    // </SelfConstraint>
 }

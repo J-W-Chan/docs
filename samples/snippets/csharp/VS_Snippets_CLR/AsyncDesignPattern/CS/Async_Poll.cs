@@ -1,4 +1,4 @@
-﻿//<Snippet3>
+//<Snippet3>
 /*
 The following example demonstrates using asynchronous methods to
 get Domain Name System information for the specified host computer.
@@ -29,7 +29,7 @@ namespace Examples.AdvancedProgramming.AsynchronousOperations
                 Console.WriteLine("You must specify the name of a host computer.");
                 return;
             }
-            // Start the asychronous request for DNS information.
+            // Start the asynchronous request for DNS information.
             IAsyncResult result = Dns.BeginGetHostEntry(args[0], null, null);
             Console.WriteLine("Processing request for information...");
 
@@ -52,7 +52,7 @@ namespace Examples.AdvancedProgramming.AsynchronousOperations
                     Console.WriteLine("Aliases");
                     for (int i = 0; i < aliases.Length; i++)
                     {
-                        Console.WriteLine("{0}", aliases[i]);
+                        Console.WriteLine($"{aliases[i]}");
                     }
                 }
                 if (addresses.Length > 0)
@@ -66,7 +66,7 @@ namespace Examples.AdvancedProgramming.AsynchronousOperations
             }
             catch (SocketException e)
             {
-                Console.WriteLine("An exception occurred while processing the request: {0}", e.Message);
+                Console.WriteLine($"An exception occurred while processing the request: {e.Message}");
             }
         }
     }

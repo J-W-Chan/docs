@@ -1,4 +1,4 @@
-﻿namespace PLINQ_Samples
+namespace PLINQ_Samples
 {
     using System;
     using System.Collections.Generic;
@@ -219,7 +219,7 @@
                     UserClicksTheCancelButton(cts);
                 });
 
-                int[] results = null;
+                int[]? results = null;
                 try
                 {
                     results =
@@ -289,7 +289,7 @@
                     UserClicksTheCancelButton(cts);
                 });
 
-                double[] results = null;
+                double[]? results = null;
                 try
                 {
                     results =
@@ -368,7 +368,7 @@
                 int[] source = Enumerable.Range(1, 10000000).ToArray();
                 using CancellationTokenSource cs = new();
 
-                IEnumerable<int> results = null;
+                IEnumerable<int>? results = null;
                 try
                 {
                     results =
@@ -431,8 +431,7 @@
                     Console.WriteLine(line);
                 }
 
-                Console.WriteLine("Elapsed time: {0} ms. Press any key to exit.",
-                                sw.ElapsedMilliseconds);
+                Console.WriteLine($"Elapsed time: {sw.ElapsedMilliseconds} ms. Press any key to exit.");
                 Console.ReadKey();
             }
 
@@ -488,8 +487,8 @@
                     // perform standard deviation calc on the aggregated result.
                     (finalSum) => Math.Sqrt((finalSum / (source.Length - 1)))
                 );
-                Console.WriteLine("Mean value is = {0}", mean);
-                Console.WriteLine("Standard deviation is {0}", standardDev);
+                Console.WriteLine($"Mean value is = {mean}");
+                Console.WriteLine($"Standard deviation is {standardDev}");
                 Console.ReadLine();
             }
         }
@@ -536,7 +535,7 @@
                 _orderDetails = new Lazy<OrderDetail[]>(() => GetOrderDetailsForOrder(OrderID));
             }
             public int OrderID { get; set; }
-            public string CustomerID { get; set; }
+            public string? CustomerID { get; set; }
             public DateTime OrderDate { get; set; }
             public DateTime ShippedDate { get; set; }
             public OrderDetail[] OrderDetails { get { return _orderDetails.Value; } }
@@ -549,11 +548,11 @@
             {
                 _orders = new Lazy<Order[]>(() => GetOrdersForCustomer(CustomerID));
             }
-            public string CustomerID { get; set; }
-            public string CustomerName { get; set; }
-            public string Address { get; set; }
-            public string City { get; set; }
-            public string PostalCode { get; set; }
+            public string? CustomerID { get; set; }
+            public string? CustomerName { get; set; }
+            public string? Address { get; set; }
+            public string? City { get; set; }
+            public string? PostalCode { get; set; }
             public Order[] Orders
             {
                 get
@@ -565,7 +564,7 @@
 
         public class Product
         {
-            public string ProductName { get; set; }
+            public string? ProductName { get; set; }
             public int ProductID { get; set; }
             public double UnitPrice { get; set; }
         }
@@ -607,7 +606,7 @@
                     });
         }
 
-        public static Order[] GetOrdersForCustomer(string id)
+        public static Order[] GetOrdersForCustomer(string? id)
         {
             // Assumes we copied the file correctly!
             var orders = System.IO.File.ReadAllLines(@"..\..\plinqdata.csv")
@@ -743,7 +742,7 @@
                                 .AsOrdered()
                                 .ElementAt(48);
 
-            Console.WriteLine("Element #48 is: {0}", cust.CustomerID);
+            Console.WriteLine($"Element #48 is: {cust.CustomerID}");
         }
         //</snippet14>
 
@@ -776,7 +775,7 @@
                .OrderBy(i => i.Product); // Apply new ordering to final result sequence.
 
             foreach (var v in q2)
-                Console.WriteLine("{0} {1} {2}", v.ID, v.Customer, v.Product);
+                Console.WriteLine($"{v.ID} {v.Customer} {v.Product}");
         }
         //</snippet15>
 
@@ -836,7 +835,7 @@
             // Using the raw string array here. See PLINQ Data Sample.
             string[] customers = GetCustomersAsStrings().ToArray();
 
-            // First, we must simulate some currupt input.
+            // First, we must simulate some corrupt input.
             customers[54] = "###";
 
             var parallelQuery = from cust in customers.AsParallel()
@@ -869,7 +868,7 @@
         {
             var customers = GetCustomersAsStrings().ToArray();
             // Using the raw string array here.
-            // First, we must simulate some currupt input
+            // First, we must simulate some corrupt input
             customers[54] = "###";
 
             // Assume that in this app, we expect malformed data

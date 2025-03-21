@@ -37,7 +37,7 @@ Tokens are interpreted as commands, options, or arguments. The command-line app 
 | `--verbosity`    | Option for install command        |
 | `quiet`          | Argument for `--verbosity` option |
 
-A token can contains spaces if it's enclosed in quotation marks (`"`). Here's an example:
+A token can contain spaces if it's enclosed in quotation marks (`"`). Here's an example:
 
 ```console
 dotnet tool search "ef migrations add"
@@ -62,7 +62,7 @@ Subcommands can have their own subcommands. In `dotnet tool install`, `install` 
 
 ## Options
 
-An option is a named parameter that can be passed to a command. The [POSIX](https://en.wikipedia.org/wiki/POSIX) convention is to prefix the option name with two hyphens (`--`). The following example shows two options:
+An option is a named parameter that can be passed to a command. [POSIX](https://en.wikipedia.org/wiki/POSIX) CLIs typically prefix the option name with two hyphens (`--`). The following example shows two options:
 
 ```dotnetcli
 dotnet tool update dotnet-suggest --verbosity quiet --global
@@ -514,7 +514,7 @@ There are also some aliases with common usage limited to the .NET CLI. You can u
 
 * `-r` for `--runtime`
 
-  If your application can run on different runtimes, or has runtime-specific logic, consider supporting this option as a way of specifying a [Runtime Identifier](../../core/rid-catalog.md). If your app supports --runtime, consider supporting `--os` and `--arch` also. These options let you specify just the OS or the architecture parts of the RID, leaving the part not specified to be determined from the current platform. For more information, see d[dotnet publish](../../core/tools/dotnet-publish.md).
+  If your application can run on different runtimes, or has runtime-specific logic, consider supporting this option as a way of specifying a [Runtime Identifier](../../core/rid-catalog.md). If your app supports --runtime, consider supporting `--os` and `--arch` also. These options let you specify just the OS or the architecture parts of the RID, leaving the part not specified to be determined from the current platform. For more information, see [dotnet publish](../../core/tools/dotnet-publish.md).
 
 ### Short names
 
@@ -608,7 +608,7 @@ In the .NET CLI, some Boolean options result in the same behavior when you pass 
 
 ### Kebab case
 
-In some cases, the .NET CLI doesn't use kebab case for command, option, or argument names. For example, there is a .NET CLI option that is named [`--additionalprobingpath`](../../core/tools/dotnet.md#runtime-options) instead of `--additional-probing-path`.
+In some cases, the .NET CLI doesn't use kebab case for command, option, or argument names. For example, there is a .NET CLI option that is named [`--additionalprobingpath`](../../core/tools/dotnet.md#additionalprobingpath) instead of `--additional-probing-path`.
 
 ## See also
 

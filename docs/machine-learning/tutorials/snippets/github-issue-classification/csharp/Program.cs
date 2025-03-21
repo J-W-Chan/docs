@@ -1,10 +1,10 @@
-﻿// <SnippetAddUsings>
+// <SnippetAddUsings>
 using Microsoft.ML;
 using GitHubIssueClassification;
 // </SnippetAddUsings>
 
 // <SnippetDeclareGlobalVariables>
-string _appPath = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+string _appPath = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]) ?? ".";
 string _trainDataPath = Path.Combine(_appPath, "..", "..", "..", "Data", "issues_train.tsv");
 string _testDataPath = Path.Combine(_appPath, "..", "..", "..", "Data", "issues_test.tsv");
 string _modelPath = Path.Combine(_appPath, "..", "..", "..", "Models", "model.zip");
@@ -186,5 +186,5 @@ void SaveModelAsFile(MLContext mlContext,DataViewSchema trainingDataViewSchema, 
     mlContext.Model.Save(model, trainingDataViewSchema, _modelPath);
     // </SnippetSaveModel>
 
-    Console.WriteLine("The model is saved to {0}", _modelPath);
+    Console.WriteLine($"The model is saved to {_modelPath}");
 }

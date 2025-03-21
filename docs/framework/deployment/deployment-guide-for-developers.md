@@ -9,10 +9,13 @@ ms.assetid: 094d043e-33c4-40ba-a503-e0b20b55f4cf
 ---
 # .NET Framework deployment guide for developers
 
+[!INCLUDE [net-framework-specific](../includes/net-framework-specific.md)]
+
 This article provides information for developers who want to install any version of .NET Framework from .NET Framework 4.5 to [!INCLUDE[net_current](../../../includes/net-current-version.md)] with their apps.
 
 You can download the redistributable packages and language packs for .NET Framework from the download pages:
 
+- [.NET Framework 4.8.1](https://dotnet.microsoft.com/download/dotnet-framework/net481)
 - [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/net48)
 - [.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)
 - [.NET Framework 4.7.1](https://dotnet.microsoft.com/download/dotnet-framework/net471)
@@ -32,7 +35,7 @@ You can download the redistributable packages and language packs for .NET Framew
 
 - .NET Framework 4.5 and later versions are built incrementally on .NET Framework 4. When you install .NET Framework 4.5 or later versions on a system that has .NET Framework 4 installed, the version 4 assemblies are replaced with newer versions.
 
-- If you are referencing a Microsoft [out-of-band package](../get-started/the-net-framework-and-out-of-band-releases.md) in your app, the assembly will be included in the app package.
+- If you are referencing a Microsoft [out-of-band package](../get-started/out-of-band-releases.md) in your app, the assembly will be included in the app package.
 
 - You must have administrator privileges to install .NET Framework 4.5 or later versions.
 
@@ -228,6 +231,7 @@ The .NET Framework installer writes registry keys when installation is successfu
 
 | Version                                                                                                                                                                    | Value of the Release DWORD |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
+| .NET Framework 4.8.1                                                                                                                                                       | 533325                     |
 | .NET Framework 4.8 installed on Windows 10 May 2020 Update and Windows 10 October 2020 Update                                                                              | 528372                     |
 | .NET Framework 4.8 installed on Windows 10 May 2019 Update and Windows 10 November 2019 Update                                                                             | 528040                     |
 | .NET Framework 4.8 installed on all OS versions other than the listed Windows 10 Update versions                                                                           | 528049                     |
@@ -268,6 +272,7 @@ To determine whether the final release version of a language pack is installed f
 
 .NET Framework provides a set of stand-alone language pack executable files that contain localized resources for specific cultures. The language packs are available from the .NET Framework download pages:
 
+- [.NET Framework 4.8.1](https://dotnet.microsoft.com/download/dotnet-framework/net481)
 - [.NET Framework 4.8](https://dotnet.microsoft.com/download/dotnet-framework/net48)
 - [.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)
 - [.NET Framework 4.7.1](https://dotnet.microsoft.com/download/dotnet-framework/net471)
@@ -330,7 +335,7 @@ See the following content:
 Starting with Windows 8, you can uninstall .NET Framework 4.5 or later versions by using **Turn Windows features on and off** in Control Panel. In older versions of Windows, you can uninstall .NET Framework 4.5 or later versions by using **Add or Remove Programs** in Control Panel.
 
 > [!IMPORTANT]
-> For Windows 7 and earlier operating systems, uninstalling .NET Framework 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, or 4.8 doesn't restore .NET Framework 4.5 files, and uninstalling .NET Framework 4.5 doesn't restore .NET Framework 4 files. If you want to go back to the older version, you must reinstall it and any updates to it.
+> For Windows 7 and earlier operating systems, uninstalling .NET Framework 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, or 4.8.1 doesn't restore .NET Framework 4.5 files, and uninstalling .NET Framework 4.5 doesn't restore .NET Framework 4 files. If you want to go back to the older version, you must reinstall it and any updates to it.
 
 ## Appendix
 

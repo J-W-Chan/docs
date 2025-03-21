@@ -43,11 +43,11 @@ The option type supports the following properties and methods.
 
 |Property or method|Type|Description|
 |------------------|----|-----------|
-|[None](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-fsharpoption-1.html#None)|`'T option`|A static property that enables you to create an option value that has the `None` value.|
-|[IsNone](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-fsharpoption-1.html#IsNone)|`bool`|Returns `true` if the option has the `None` value.|
-|[IsSome](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-fsharpoption-1.html#IsSome)|`bool`|Returns `true` if the option has a value that is not `None`.|
-|[Some](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-fsharpoption-1.html#Some)|`'T option`|A static member that creates an option that has a value that is not `None`.|
-|[Value](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-fsharpoption-1.html#Value)|`'T`|Returns the underlying value, or throws a `System.NullReferenceException` if the value is `None`.|
+|`None`|`'T option`|A static member that creates an option value that has the `None` value.|
+|[IsNone](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-option-1.html#IsNone)|`bool`|Returns `true` if the option has the `None` value.|
+|[IsSome](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-option-1.html#IsSome)|`bool`|Returns `true` if the option has a value that is not `None`.|
+|`Some`|`'T option`|A static member that creates an option that has a value that is not `None`.|
+|[Value](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-option-1.html#Value)|`'T`|Returns the underlying value, or throws a `System.NullReferenceException` if the value is `None`.|
 
 ## Option Module
 
@@ -60,6 +60,22 @@ The option module also includes functions that correspond to the functions that 
 ## Converting to Other Types
 
 Options can be converted to lists or arrays. When an option is converted into either of these data structures, the resulting data structure has zero or one element. To convert an option to an array, use [`Option.toArray`](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-optionmodule.html#toArray). To convert an option to a list, use [`Option.toList`](https://fsharp.github.io/fsharp-core-docs/reference/fsharp-core-optionmodule.html#toList).
+
+### Converting Options with Default Values
+
+In addition to converting to lists and arrays, options can be converted to other types by providing default values using the `Option.defaultValue` function. This is particularly useful when you want to ensure that the value is not `None`. For example:
+
+```fsharp
+let optionString = Some("F#")
+let defaultString = optionString |> Option.defaultValue ""
+// defaultString is "F#"
+
+let optionInt = None
+let defaultInt = optionInt |> Option.defaultValue 0
+// defaultInt is 0
+```
+
+The `Option.defaultValue` function allows you to handle both `Some` and `None` cases seamlessly without pattern matching.
 
 ## See also
 

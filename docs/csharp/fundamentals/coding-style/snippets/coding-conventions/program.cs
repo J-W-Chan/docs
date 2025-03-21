@@ -4,16 +4,29 @@ namespace Coding_Conventions_Examples
 {
     class Program
     {
-        //<snippet14a>
-        public static Action<string> ActionExample1 = x => Console.WriteLine($"x is: {x}");
+        public static void DelegateExamples()
+        {
+            //<snippet14a>
+            Action<string> actionExample1 = x => Console.WriteLine($"x is: {x}");
 
-        public static Action<string, string> ActionExample2 = (x, y) => 
-            Console.WriteLine($"x is: {x}, y is {y}");
+            Action<string, string> actionExample2 = (x, y) =>
+                Console.WriteLine($"x is: {x}, y is {y}");
 
-        public static Func<string, int> FuncExample1 = x => Convert.ToInt32(x);
+            Func<string, int> funcExample1 = x => Convert.ToInt32(x);
 
-        public static Func<int, int, int> FuncExample2 = (x, y) => x + y;
-        //</snippet14a>
+            Func<int, int, int> funcExample2 = (x, y) => x + y;
+            //</snippet14a>
+
+            //<snippet15a>
+            actionExample1("string for x");
+
+            actionExample2("string for x", "string for y");
+
+            Console.WriteLine($"The value is {funcExample1("1")}");
+
+            Console.WriteLine($"The sum is {funcExample2(1, 2)}");
+            //</snippet15a>
+        }
         //<snippet14b>
         public delegate void Del(string message);
 
@@ -31,11 +44,11 @@ namespace Coding_Conventions_Examples
                 PerformanceCounterCategory();
             //</snippet1>
 
-            int val1 = 1;
-            int val2 = 2;
-            int val3 = 3;
+            int startX = 1;
+            int endX = 2;
+            int previousX = 3;
             //<snippet2>
-            if ((val1 > val2) && (val1 > val3))
+            if ((startX > endX) && (startX > previousX))
             {
                 // Take appropriate action.
             }
@@ -48,16 +61,18 @@ namespace Coding_Conventions_Examples
 
             // Save snippet 4 and 5 for possible additions in program structure.
 
-            Name[] nameList = {new Name { FirstName = "Anderson", LastName = "Redmond" },
-                                 new Name { FirstName = "Jones", LastName = "Seattle" },
-                                  new Name { FirstName = "Anderson", LastName = "Redmond" }};
+            Name[] nameList = [
+                new Name { FirstName = "Anderson", LastName = "Redmond" },
+                new Name { FirstName = "Jones", LastName = "Seattle" },
+                new Name { FirstName = "Anderson", LastName = "Redmond" }
+            ];
             int n = 0;
 
             //<snippet6>
             string displayName = $"{nameList[n].LastName}, {nameList[n].FirstName}";
             //</snippet6>
 
-            Console.WriteLine("{0}, {1}", nameList[n].LastName, nameList[n].FirstName);
+            Console.WriteLine($"{nameList[n].LastName}, {nameList[n].FirstName}");
             Console.WriteLine(nameList[n].LastName + ", " + nameList[n].FirstName);
 
             //<snippet7>
@@ -71,13 +86,13 @@ namespace Coding_Conventions_Examples
             //</snippet7>
 
             //<snippet8>
-            var var1 = "This is clearly a string.";
-            var var2 = 27;
+            var message = "This is clearly a string.";
+            var currentTemperature = 27;
             //</snippet8>
 
             //<snippet9>
-            int var3 = Convert.ToInt32(Console.ReadLine()); 
-            int var4 = ExampleClass.ResultSoFar();
+            int numberOfIterations = Convert.ToInt32(Console.ReadLine());
+            int currentMaximum = ExampleClass.ResultSoFar();
             //</snippet9>
 
             //<snippet10>
@@ -99,36 +114,21 @@ namespace Coding_Conventions_Examples
             foreach (char ch in laugh)
             {
                 if (ch == 'h')
+                {
                     Console.Write("H");
+                }
                 else
+                {
                     Console.Write(ch);
+                }
             }
             Console.WriteLine();
             //</snippet12>
 
-            //<snippet13a>
-            string[] vowels1 = { "a", "e", "i", "o", "u" };
-            //</snippet13a>
-            //<snippet13b>
-            var vowels2 = new string[] { "a", "e", "i", "o", "u" };
-            //</snippet13b>
-            //<snippet13c>
-            var vowels3 = new string[5];
-            vowels3[0] = "a";
-            vowels3[1] = "e";
-            // And so on.
-            //</snippet13c>
+            //<snippet13>
+            string[] vowels = [ "a", "e", "i", "o", "u" ];
+            //</snippet13>
 
-
-            //<snippet15a>
-            ActionExample1("string for x");
-
-            ActionExample2("string for x", "string for y");
-
-            Console.WriteLine($"The value is {FuncExample1("1")}");
-
-            Console.WriteLine($"The sum is {FuncExample2(1, 2)}");
-            //</snippet15a>
             //<snippet15b>
             Del exampleDel2 = DelMethod;
             exampleDel2("Hey");
@@ -140,32 +140,29 @@ namespace Coding_Conventions_Examples
 
 
             // #16 is below Main.
-            Console.WriteLine(GetValueFromArray(vowels1, 1));
+            Console.WriteLine(ComputeDistance(1,2,3,4));
 
             // 17 requires System.Drawing
             //<snippet17a>
-            Font font1 = new Font("Arial", 10.0f);
+            Font bodyStyle = new Font("Arial", 10.0f);
             try
             {
-                byte charset = font1.GdiCharSet;
+                byte charset = bodyStyle.GdiCharSet;
             }
             finally
             {
-                if (font1 != null)
-                {
-                    ((IDisposable)font1).Dispose();
-                }
+                bodyStyle?.Dispose();
             }
             //</snippet17a>
             //<snippet17b>
-            using (Font font2 = new Font("Arial", 10.0f))
+            using (Font arial = new Font("Arial", 10.0f))
             {
-                byte charset2 = font2.GdiCharSet;
+                byte charset2 = arial.GdiCharSet;
             }
             //</snippet17b>
             //<snippet17c>
-            using Font font3 = new Font("Arial", 10.0f);
-            byte charset3 = font3.GdiCharSet;
+            using Font normalStyle = new Font("Arial", 10.0f);
+            byte charset3 = normalStyle.GdiCharSet;
             //</snippet17c>
 
             //<snippet18>
@@ -175,9 +172,9 @@ namespace Coding_Conventions_Examples
             Console.Write("Enter a divisor: ");
             int divisor = Convert.ToInt32(Console.ReadLine());
 
-            if ((divisor != 0) && (dividend / divisor > 0))
+            if ((divisor != 0) && (dividend / divisor) is var result)
             {
-                Console.WriteLine("Quotient: {0}", dividend / divisor);
+                Console.WriteLine("Quotient: {0}", result);
             }
             else
             {
@@ -187,24 +184,24 @@ namespace Coding_Conventions_Examples
 
 
             //<snippet19>
-            var instance1 = new ExampleClass();
+            var firstExample = new ExampleClass();
             //</snippet19>
-            // Can't show `ExampleClass instance1 = new()` because this projet targets net48.
+            // Can't show `ExampleClass instance1 = new()` because this project targets net48.
 
             //<snippet20>
-            ExampleClass instance2 = new ExampleClass();
+            ExampleClass secondExample = new ExampleClass();
             //</snippet20>
 
             //<snippet21a>
-            var instance3 = new ExampleClass { Name = "Desktop", ID = 37414,
+            var thirdExample = new ExampleClass { Name = "Desktop", ID = 37414,
                 Location = "Redmond", Age = 2.3 };
             //</snippet21a>
             //<snippet21b>
-            var instance4 = new ExampleClass();
-            instance4.Name = "Desktop";
-            instance4.ID = 37414;
-            instance4.Location = "Redmond";
-            instance4.Age = 2.3;
+            var fourthExample = new ExampleClass();
+            fourthExample.Name = "Desktop";
+            fourthExample.ID = 37414;
+            fourthExample.Location = "Redmond";
+            fourthExample.Age = 2.3;
             //</snippet21b>
 
             // #22 and #23 are in Coding_Conventions_WF, below.
@@ -213,20 +210,14 @@ namespace Coding_Conventions_Examples
 
             ExampleClass.totalInstances = 1;
 
-            var customers = new List<Customer>
-            {
-              new Customer { Name = "Jones", ID = 432, City = "Redmond" }
-            };
+            List<Customer> Customers = [ new Customer { Name = "Jones", ID = 432, City = "Redmond" } ];
 
             // Check shop name to use this.
-            var distributors = new List<Distributor>
-            {
-              new Distributor { Name = "ShopSmart", ID = 11302, City = "Redmond" }
-            };
+            List<Distributor> Distributors = [ new Distributor { Name = "ShopSmart", ID = 11302, City = "Redmond" } ];
 
             //<snippet25>
             //<snippet28>
-            var seattleCustomers = from customer in customers
+            var seattleCustomers = from customer in Customers
                                    //</snippet28>
                                    where customer.City == "Seattle"
                                    select customer.Name;
@@ -234,20 +225,20 @@ namespace Coding_Conventions_Examples
 
             //<snippet26>
             var localDistributors =
-                from customer in customers
-                join distributor in distributors on customer.City equals distributor.City
+                from customer in Customers
+                join distributor in Distributors on customer.City equals distributor.City
                 select new { Customer = customer, Distributor = distributor };
             //</snippet26>
 
             //<snippet27>
             var localDistributors2 =
-                from customer in customers
-                join distributor in distributors on customer.City equals distributor.City
-                select new { CustomerName = customer.Name, DistributorID = distributor.ID };
+                from customer in Customers
+                join distributor in Distributors on customer.City equals distributor.City
+                select new { CustomerName = customer.Name, DistributorName = distributor.Name };
             //</snippet27>
 
             //<snippet29>
-            var seattleCustomers2 = from customer in customers
+            var seattleCustomers2 = from customer in Customers
                                     where customer.City == "Seattle"
                                     orderby customer.Name
                                     select customer;
@@ -256,13 +247,13 @@ namespace Coding_Conventions_Examples
             // #30 is in class CompoundFrom
 
             var customerDistributorNames =
-                from customer in customers
-                join distributor in distributors on customer.City equals distributor.City
+                from customer in Customers
+                join distributor in Distributors on customer.City equals distributor.City
                 select new { CustomerName = customer.Name, DistributorID = distributor.ID };
 
             var customerDistributorNames2 =
-                from customer in customers
-                from distributor in distributors
+                from customer in Customers
+                from distributor in Distributors
                 where customer.City == distributor.City
                 select new { CustomerName = customer.Name, DistributorID = distributor.ID };
 
@@ -283,15 +274,15 @@ namespace Coding_Conventions_Examples
         }
 
         //<snippet16>
-        static string GetValueFromArray(string[] array, int index)
+        static double ComputeDistance(double x1, double y1, double x2, double y2)
         {
             try
             {
-                return array[index];
+                return Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
             }
-            catch (System.IndexOutOfRangeException ex)
+            catch (System.ArithmeticException ex)
             {
-                Console.WriteLine("Index is out of range: {0}", index);
+                Console.WriteLine($"Arithmetic overflow or underflow: {ex}");
                 throw;
             }
         }
@@ -334,20 +325,14 @@ namespace Coding_Conventions_Examples
             return totalInstances;
         }
 
-        public static int ResultSoFar()
-        {
-            return 0;
-        }
+        public static int ResultSoFar() => 0;
     }
 
     class BaseClass
     {
         protected static int totalInstances;
 
-        static BaseClass()
-        {
-            totalInstances = 0;
-        }
+        static BaseClass() => totalInstances = 0;
 
         public static int IncrementTotal()
         {
@@ -366,7 +351,7 @@ namespace Coding_Conventions_Examples
         public class Student
         {
             public string? LastName { get; set; }
-            public List<int>? Scores { get; set; }
+            public ICollection<int> Scores { get; set; } = default!;
         }
 
         static void Main()
@@ -374,32 +359,37 @@ namespace Coding_Conventions_Examples
 
             // Use a collection initializer to create the data source. Note that
             // each element in the list contains an inner sequence of scores.
-            List<Student> students = new List<Student>
-        {
-           new Student {LastName="Omelchenko", Scores= new List<int> {97, 72, 81, 60}},
-           new Student {LastName="O'Donnell", Scores= new List<int> {75, 84, 91, 39}},
-           new Student {LastName="Mortensen", Scores= new List<int> {88, 94, 65, 85}},
-           new Student {LastName="Garcia", Scores= new List<int> {97, 89, 85, 82}},
-           new Student {LastName="Beebe", Scores= new List<int> {35, 72, 91, 70}}
-        };
+            List<Student> students = [
+                new Student {LastName="Omelchenko", Scores = [97, 72, 81, 60]},
+                new Student {LastName="O'Donnell", Scores = [75, 84, 91, 39]},
+                new Student {LastName="Mortensen", Scores = [88, 94, 65, 85]},
+                new Student {LastName="Garcia", Scores = [97, 89, 85, 82]},
+                new Student {LastName="Beebe", Scores = [35, 72, 91, 70]}
+            ];
 
             //<snippet30>
             var scoreQuery = from student in students
-                             from score in student.Scores!
+                             from score in student.Scores
                              where score > 90
                              select new { Last = student.LastName, score };
             //</snippet30>
 
+            // <interpolatedStrings>
             // Execute the queries.
             Console.WriteLine("scoreQuery:");
             foreach (var student in scoreQuery)
             {
-                Console.WriteLine("{0} Score: {1}", student.Last, student.score);
+                Console.WriteLine($"{student.Last} Score: {student.score}");
             }
+            // </interpolatedStrings>
 
-            // Keep the console window open in debug mode.
-            Console.WriteLine("Press any key to exit.");
-            Console.ReadKey();
+            // <rawStringLiterals>
+            var message = """
+                This is a long message that spans across multiple lines.
+                It uses raw string literals. This means we can 
+                also include characters like \n and \t without escaping them.
+                """;
+            // </rawStringLiterals>
         }
     }
 }
@@ -445,4 +435,51 @@ namespace Coding_Conventions_WF2
         {
         }
     }
+}
+
+namespace GenericTypeParameters
+{
+    public class WrapParameters
+    {
+        //<TypeParametersOne>
+        public interface ISessionChannel<TSession> { /*...*/ }
+        public delegate TOutput Converter<TInput, TOutput>(TInput from);
+        public class List<T> { /*...*/ }
+        //</TypeParametersOne>
+
+        //<TypeParametersTwo>
+        public int IComparer<T>() => 0;
+        public delegate bool Predicate<T>(T item);
+        public struct Nullable<T> where T : struct { /*...*/ }
+        //</TypeParametersTwo>
+
+        class wrap
+        {
+            //<TypeParametersThree>
+            public interface ISessionChannel<TSession>
+            {
+                TSession Session { get; }
+            }
+            //</TypeParametersThree>
+        }
+    }//WrapParameters
+}
+
+namespace Constructors
+{
+    // <PrimaryRecord>
+    public record Person(string FirstName, string LastName);
+    // </PrimaryRecord>
+
+    // <PrimaryClass>
+    public class LabelledContainer<T>(string label)
+    {
+        public string Label { get; } = label;
+        public required T Contents 
+        { 
+            get;
+            init;
+        }
+    }
+    // </PrimaryClass>
 }

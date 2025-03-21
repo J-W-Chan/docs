@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ namespace specialNamespaceForOneMethodSignature
     using System;
     class Task<TResult>
     {
-        public TResult Tvalue;
+        public TResult TValue;
     }
     class Dummy <TResult>
     {
@@ -275,7 +275,7 @@ namespace APM_Task
     {
         public IAsyncResult BeginCalculate(int decimalPlaces, AsyncCallback ac, object state)
         {
-            Console.WriteLine("Calling BeginCalculate on thread {0}", Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine($"Calling BeginCalculate on thread {Thread.CurrentThread.ManagedThreadId}");
             Task<string> f = Task<string>.Factory.StartNew(_ => Compute(decimalPlaces), state);
             if (ac != null) f.ContinueWith((res) => ac(f));
             return f;
@@ -283,19 +283,19 @@ namespace APM_Task
 
         public string Compute(int numPlaces)
         {
-            Console.WriteLine("Calling compute on thread {0}", Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine($"Calling compute on thread {Thread.CurrentThread.ManagedThreadId}");
 
             // Simulating some heavy work.
             Thread.SpinWait(500000000);
 
-            // Actual implemenation left as exercise for the reader.
+            // Actual implementation left as exercise for the reader.
             // Several examples are available on the Web.
             return "3.14159265358979323846264338327950288";
         }
 
         public string EndCalculate(IAsyncResult ar)
         {
-            Console.WriteLine("Calling EndCalculate on thread {0}", Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine($"Calling EndCalculate on thread {Thread.CurrentThread.ManagedThreadId}");
             return ((Task<string>)ar).Result;
         }
     }
@@ -311,7 +311,7 @@ namespace APM_Task
             AsyncCallback callBack = new AsyncCallback(PrintResult);
             IAsyncResult ar = calc.BeginCalculate(places, callBack, calc);
 
-            // Do some work on this thread while the calulator is busy.
+            // Do some work on this thread while the calculator is busy.
             Console.WriteLine("Working...");
             Thread.SpinWait(500000);
             Console.ReadLine();
@@ -321,8 +321,7 @@ namespace APM_Task
         {
             Calculator c = (Calculator)result.AsyncState;
             string piString = c.EndCalculate(result);
-            Console.WriteLine("Calling PrintResult on thread {0}; result = {1}",
-                        Thread.CurrentThread.ManagedThreadId, piString);
+            Console.WriteLine($"Calling PrintResult on thread {Thread.CurrentThread.ManagedThreadId}; result = {piString}");
         }
     }
     #endregion
@@ -586,7 +585,7 @@ class FileStreamDemo
                 }
                 catch
                 {
-                    Console.WriteLine("Argument exception on {0}", file);
+                    Console.WriteLine($"Argument exception on {file}");
                     continue;
                 }
                 t.ContinueWith((antecedent) => ProcessFileData(antecedent.Result));

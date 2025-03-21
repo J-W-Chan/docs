@@ -1,8 +1,8 @@
-﻿// <Snippet4>
+// <Snippet4>
 using System;
 using System.Threading.Tasks;
 
-public class Example
+public class Result
 {
    public static void Main()
    {
@@ -19,7 +19,7 @@ public class Example
                               i == taskArray.Length - 1 ? "= " : "+ ");
             sum += results[i];
         }
-        Console.WriteLine("{0:N1}", sum);
+        Console.WriteLine($"{sum:N1}");
    }
 
    private static Double DoComputation(Double start)

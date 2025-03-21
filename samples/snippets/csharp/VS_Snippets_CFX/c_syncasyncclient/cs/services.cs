@@ -1,4 +1,4 @@
-﻿// <snippet1>
+// <snippet1>
 // <snippet2>
 using System;
 using System.Collections.Generic;
@@ -36,8 +36,8 @@ namespace Microsoft.WCF.Documentation
 
     public string  SampleMethod(string msg)
     {
-      Console.WriteLine("Called synchronous sample method with \"{0}\"", msg);
- 	    return "The sychronous service greets you: " + msg;
+      Console.WriteLine($"Called synchronous sample method with \"{msg}\"");
+ 	    return "The synchronous service greets you: " + msg;
     }
 
     // This asynchronously implemented operation is never called because
@@ -58,14 +58,14 @@ namespace Microsoft.WCF.Documentation
     // <snippet3>
     public IAsyncResult BeginServiceAsyncMethod(string msg, AsyncCallback callback, object asyncState)
     {
-      Console.WriteLine("BeginServiceAsyncMethod called with: \"{0}\"", msg);
+      Console.WriteLine($"BeginServiceAsyncMethod called with: \"{msg}\"");
       return new CompletedAsyncResult<string>(msg);
     }
 
     public string EndServiceAsyncMethod(IAsyncResult r)
     {
       CompletedAsyncResult<string> result = r as CompletedAsyncResult<string>;
-      Console.WriteLine("EndServiceAsyncMethod called with: \"{0}\"", result.Data);
+      Console.WriteLine($"EndServiceAsyncMethod called with: \"{result.Data}\"");
       return result.Data;
     }
     // </snippet3>

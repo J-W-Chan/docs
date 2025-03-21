@@ -1,4 +1,4 @@
-﻿//<snippet0>
+//<snippet0>
 using System;
 using System.ServiceModel;
 using System.ServiceModel.Security;
@@ -71,19 +71,19 @@ namespace TcpService
                 sh.Open();
 
                 string address = sh.Description.Endpoints[0].ListenUri.AbsoluteUri;
-                Console.WriteLine("Listening @ {0}", address);
+                Console.WriteLine($"Listening @ {address}");
                 Console.WriteLine("Press enter to close the service");
                 Console.ReadLine();
                 sh.Close();
             }
             catch (CommunicationException ce)
             {
-                Console.WriteLine("A communication error occurred: {0}", ce.Message);
+                Console.WriteLine($"A communication error occurred: {ce.Message}");
                 Console.WriteLine();
             }
             catch (System.Exception exc)
             {
-                Console.WriteLine("An unforeseen error occurred: {0}", exc.Message);
+                Console.WriteLine($"An unforeseen error occurred: {exc.Message}");
                 Console.ReadLine();
             }
             //</snippet1>
@@ -104,7 +104,7 @@ namespace TcpService
                 "net.tcp://{0}:8036/Calculator",
                 System.Net.Dns.GetHostEntry("").HostName);
 
-            // Create an instance of the NetTcpBindng and set its security mode to Message.
+            // Create an instance of the NetTcpBinding and set its security mode to Message.
             NetTcpBinding b = new NetTcpBinding();
             b.Security.Mode = SecurityMode.Message;
 
@@ -134,19 +134,19 @@ namespace TcpService
                 sh.Open();
 
                 string address = sh.Description.Endpoints[0].ListenUri.AbsoluteUri;
-                Console.WriteLine("Listening @ {0}", address);
+                Console.WriteLine($"Listening @ {address}");
                 Console.WriteLine("Press enter to close the service");
                 Console.ReadLine();
                 sh.Close();
             }
             catch (CommunicationException ce)
             {
-                Console.WriteLine("A communication error occurred: {0}", ce.Message);
+                Console.WriteLine($"A communication error occurred: {ce.Message}");
                 Console.WriteLine();
             }
             catch (System.Exception exc)
             {
-                Console.WriteLine("An unforeseen error occurred: {0}", exc.Message);
+                Console.WriteLine($"An unforeseen error occurred: {exc.Message}");
                 Console.ReadLine();
             }
 
@@ -184,12 +184,12 @@ namespace TcpService
             }
             catch (CommunicationException ce)
             {
-                Console.WriteLine("A communication error occurred: {0}", ce.Message);
+                Console.WriteLine($"A communication error occurred: {ce.Message}");
                 Console.WriteLine();
             }
             catch (System.Exception exc)
             {
-                Console.WriteLine("An unforeseen error occurred: {0}", exc.Message);
+                Console.WriteLine($"An unforeseen error occurred: {exc.Message}");
                 Console.ReadLine();
             }
             //</snippet3>

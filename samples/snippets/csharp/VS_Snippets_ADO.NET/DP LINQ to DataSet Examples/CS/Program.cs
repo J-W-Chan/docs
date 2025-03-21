@@ -1,14 +1,12 @@
-﻿// <SnippetImportsUsing>
+// <SnippetImportsUsing>
 using System;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.Common;
 using System.Globalization;
-// </SnippetImportsUsing>
+using System.Linq;
 using System.Windows.Forms;
+// </SnippetImportsUsing>
 
 namespace LINQtoDataSetSamples
 {
@@ -64,7 +62,7 @@ namespace LINQtoDataSetSamples
 
             /*** Set Operators ***/
             //DistinctRows(); // Messy...
-            //Distinct2(); // Lame...
+            //Distinct2(); // Pathetic...
             //Union2();
             //Intersect2();
             //Except2();
@@ -219,8 +217,7 @@ namespace LINQtoDataSetSamples
             Console.WriteLine("Product Info:");
             foreach (var productInfo in query)
             {
-                Console.WriteLine("Product name: {0} Product number: {1} List price: ${2} ",
-                    productInfo.ProductName, productInfo.ProductNumber, productInfo.Price);
+                Console.WriteLine($"Product name: {productInfo.ProductName} Product number: {productInfo.ProductNumber} List price: ${productInfo.Price} ");
             }
             // </SnippetSelectAnonymousTypes_MQ>
         }
@@ -408,8 +405,7 @@ namespace LINQtoDataSetSamples
                 };
             foreach (var order in query)
             {
-                Console.WriteLine("Contact ID: {0} Last name: {1} Order ID: {2} Total: {3}",
-                    order.ContactID, order.LastName, order.OrderID, order.total);
+                Console.WriteLine($"Contact ID: {order.ContactID} Last name: {order.LastName} Order ID: {order.OrderID} Total: {order.total}");
             }
 
             // </SnippetSelectManyFromAssignment>
@@ -443,10 +439,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var onlineOrder in query)
             {
-                Console.WriteLine("Order ID: {0} Order date: {1:d} Order number: {2}",
-                    onlineOrder.SalesOrderID,
-                    onlineOrder.OrderDate,
-                    onlineOrder.SalesOrderNumber);
+                Console.WriteLine($"Order ID: {onlineOrder.SalesOrderID} Order date: {onlineOrder.OrderDate:d} Order number: {onlineOrder.SalesOrderNumber}");
             }
             //</SnippetWhere1>
         }
@@ -476,8 +469,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var order in query)
             {
-                Console.WriteLine("Order ID: {0} Order quantity: {1}",
-                    order.SalesOrderID, order.OrderQty);
+                Console.WriteLine($"Order ID: {order.SalesOrderID} Order quantity: {order.OrderQty}");
             }
             //</SnippetWhere2>
         }
@@ -507,9 +499,9 @@ namespace LINQtoDataSetSamples
 
             foreach (var product in query)
             {
-                Console.WriteLine("Name: {0}", product.Name);
-                Console.WriteLine("Product number: {0}", product.ProductNumber);
-                Console.WriteLine("List price: ${0}", product.ListPrice);
+                Console.WriteLine($"Name: {product.Name}");
+                Console.WriteLine($"Product number: {product.ProductNumber}");
+                Console.WriteLine($"List price: ${product.ListPrice}");
                 Console.WriteLine("");
             }
             //</SnippetWhere3>
@@ -542,9 +534,9 @@ namespace LINQtoDataSetSamples
 
             foreach (var product in query)
             {
-                Console.WriteLine("Name: {0}", product.Name);
-                Console.WriteLine("Product number: {0}", product.ProductNumber);
-                Console.WriteLine("List price: ${0}", product.ListPrice);
+                Console.WriteLine($"Name: {product.Name}");
+                Console.WriteLine($"Product number: {product.ProductNumber}");
+                Console.WriteLine($"List price: ${product.ListPrice}");
                 Console.WriteLine("");
             }
             //</SnippetWhereIsNull>
@@ -576,15 +568,14 @@ namespace LINQtoDataSetSamples
                     order.Field<int>("SalesOrderID"), order.Field<DateTime>("OrderDate"));
                 foreach (DataRow orderDetail in order.GetChildRows("SalesOrderHeaderDetail"))
                 {
-                    Console.WriteLine("  Product ID: {0} Unit Price {1}",
-                        orderDetail["ProductID"], orderDetail["UnitPrice"]);
+                    Console.WriteLine($"  Product ID: {orderDetail["ProductID"]} Unit Price {orderDetail["UnitPrice"]}");
                 }
             }
             //</SnippetWhereDrilldown>
         }
         #endregion
 
-        #region "Partioning Operators"
+        #region "Partitioning Operators"
 
         /*[Category("Partitioning Operators")]
         [Title("Take - Nested")]
@@ -616,8 +607,7 @@ namespace LINQtoDataSetSamples
             Console.WriteLine("First 3 orders in Seattle:");
             foreach (var order in query)
             {
-                Console.WriteLine("City: {0} Order ID: {1} Total Due: {2:d}",
-                    order.City, order.OrderID, order.OrderDate);
+                Console.WriteLine($"City: {order.City} Order ID: {order.OrderID} Total Due: {order.OrderDate:d}");
             }
             //</SnippetTakeNested>
         }
@@ -652,8 +642,7 @@ namespace LINQtoDataSetSamples
             Console.WriteLine("All but first 2 orders in Seattle:");
             foreach (var order in query)
             {
-                Console.WriteLine("City: {0} Order ID: {1} Total Due: {2:d}",
-                    order.City, order.OrderID, order.OrderDate);
+                Console.WriteLine($"City: {order.City} Order ID: {order.OrderID} Total Due: {order.OrderDate:d}");
             }
             //</SnippetSkipNested>
         }
@@ -992,8 +981,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var contact in query)
             {
-                Console.WriteLine("Last names that start with the letter '{0}':",
-                    contact.FirstLetter);
+                Console.WriteLine($"Last names that start with the letter '{contact.FirstLetter}':");
                 foreach (var name in contact.Names)
                 {
                     Console.WriteLine(name.Field<string>("LastName"));
@@ -1022,7 +1010,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var addressGroup in query)
             {
-                Console.WriteLine("Postal Code: {0}", addressGroup.PostalCode);
+                Console.WriteLine($"Postal Code: {addressGroup.PostalCode}");
                 foreach (var address in addressGroup.AddressLine)
                 {
                     Console.WriteLine("\t" + address.Field<string>("AddressLine1") +
@@ -1069,13 +1057,13 @@ namespace LINQtoDataSetSamples
 
             foreach (var contactGroup in query)
             {
-                Console.WriteLine("ContactID = {0}", contactGroup.ContactID);
+                Console.WriteLine($"ContactID = {contactGroup.ContactID}");
                 foreach (var yearGroup in contactGroup.YearGroups)
                 {
-                    Console.WriteLine("\t Year= {0}", yearGroup.Year);
+                    Console.WriteLine($"\t Year= {yearGroup.Year}");
                     foreach (var monthGroup in yearGroup.MonthGroups)
                     {
-                        Console.WriteLine("\t\t Month= {0}", monthGroup.Month);
+                        Console.WriteLine($"\t\t Month= {monthGroup.Month}");
                         foreach (var order in monthGroup.Orders)
                         {
                             Console.WriteLine("\t\t\t OrderID= {0} ",
@@ -1160,8 +1148,7 @@ namespace LINQtoDataSetSamples
 
             foreach (DataRow row in distinctContacts)
             {
-                Console.WriteLine("Id: {0} {1} {2} {3}",
-                    row["ContactID"], row["Title"], row["FirstName"], row["LastName"]);
+                Console.WriteLine($"Id: {row["ContactID"]} {row["Title"]} {row["FirstName"]} {row["LastName"]}");
             }
             //</SnippetDistinct2>
         }
@@ -1197,8 +1184,7 @@ namespace LINQtoDataSetSamples
             Console.WriteLine("Union of contacts tables:");
             foreach (DataRow row in contacts)
             {
-                Console.WriteLine("Id: {0} {1} {2} {3}",
-                    row["ContactID"], row["Title"], row["FirstName"], row["LastName"]);
+                Console.WriteLine($"Id: {row["ContactID"]} {row["Title"]} {row["FirstName"]} {row["LastName"]}");
             }
             //</SnippetUnion2>
         }
@@ -1235,8 +1221,7 @@ namespace LINQtoDataSetSamples
             Console.WriteLine("Intersection of contacts tables");
             foreach (DataRow row in contacts)
             {
-                Console.WriteLine("Id: {0} {1} {2} {3}",
-                    row["ContactID"], row["Title"], row["FirstName"], row["LastName"]);
+                Console.WriteLine($"Id: {row["ContactID"]} {row["Title"]} {row["FirstName"]} {row["LastName"]}");
             }
             //</SnippetIntersect2>
         }
@@ -1274,8 +1259,7 @@ namespace LINQtoDataSetSamples
             Console.WriteLine("Except of employees tables");
             foreach (DataRow row in contacts)
             {
-                Console.WriteLine("Id: {0} {1} {2} {3}",
-                    row["ContactID"], row["Title"], row["FirstName"], row["LastName"]);
+                Console.WriteLine($"Id: {row["ContactID"]} {row["Title"]} {row["FirstName"]} {row["LastName"]}");
             }
             //</SnippetExcept2>
         }
@@ -1376,16 +1360,19 @@ namespace LINQtoDataSetSamples
         {
             //<SnippetToDictionary>
             // Fill the DataSet.
-            DataSet ds = new DataSet();
-            ds.Locale = CultureInfo.InvariantCulture;
+            DataSet ds = new DataSet
+            {
+                Locale = CultureInfo.InvariantCulture
+            };
             FillDataSet(ds);
 
             DataTable products = ds.Tables["Product"];
 
-            var scoreRecordsDict = products.AsEnumerable().
-                ToDictionary(record => record.Field<string>("Name"));
-            Console.WriteLine("Top Tube's ProductID: {0}",
-                scoreRecordsDict["Top Tube"]["ProductID"]);
+            var scoreRecordsDict =
+                products.AsEnumerable()
+                    .Where(rec=>rec.Field<string>("Name") !=null)
+                    .ToDictionary(record => record.Field<string>("Name"));
+            Console.WriteLine($"Top Tube's ProductID: {scoreRecordsDict["Top Tube"]["ProductID"]}");
             //</SnippetToDictionary>
         }
 
@@ -1457,8 +1444,7 @@ namespace LINQtoDataSetSamples
                 select address.Field<string>("AddressLine1"))
             .ElementAt(5);
 
-            Console.WriteLine("Fifth address where PostalCode = 'M4B 1V7': {0}",
-                fifthAddress);
+            Console.WriteLine($"Fifth address where PostalCode = 'M4B 1V7': {fifthAddress}");
             //</SnippetElementAt>
         }
 
@@ -1568,8 +1554,7 @@ namespace LINQtoDataSetSamples
             Decimal averageListPrice =
                 products.Average(product => product.Field<Decimal>("ListPrice"));
 
-            Console.WriteLine("The average list price of all the products is ${0}",
-                averageListPrice);
+            Console.WriteLine($"The average list price of all the products is ${averageListPrice}");
             //</SnippetAverage_MQ>
         }
 
@@ -1597,8 +1582,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var product in query)
             {
-                Console.WriteLine("Product style: {0} Average list price: {1}",
-                    product.Style, product.AverageListPrice);
+                Console.WriteLine($"Product style: {product.Style} Average list price: {product.AverageListPrice}");
             }
             //</SnippetAverage2_MQ>
         }
@@ -1618,7 +1602,7 @@ namespace LINQtoDataSetSamples
 
             int numProducts = products.Count();
 
-            Console.WriteLine("There are {0} products.", numProducts);
+            Console.WriteLine($"There are {numProducts} products.");
             //</SnippetCount>
         }
 
@@ -1646,9 +1630,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var contact in query)
             {
-                Console.WriteLine("CustomerID = {0} \t OrderCount = {1}",
-                    contact.CustomerID,
-                    contact.OrderCount);
+                Console.WriteLine($"CustomerID = {contact.CustomerID} \t OrderCount = {contact.OrderCount}");
             }
             //</SnippetCountNested>
         }
@@ -1674,9 +1656,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var product in query)
             {
-                Console.WriteLine("Color = {0} \t ProductCount = {1}",
-                    product.Color,
-                    product.ProductCount);
+                Console.WriteLine($"Color = {product.Color} \t ProductCount = {product.ProductCount}");
             }
             //</SnippetCountGrouped>
         }
@@ -1695,7 +1675,7 @@ namespace LINQtoDataSetSamples
             DataTable contacts = ds.Tables["Contact"];
 
             long numberOfContacts = contacts.AsEnumerable().LongCount();
-            Console.WriteLine("There are {0} Contacts", numberOfContacts);
+            Console.WriteLine($"There are {numberOfContacts} Contacts");
             //</SnippetLongCountSimple>
         }
 
@@ -1714,8 +1694,7 @@ namespace LINQtoDataSetSamples
 
             double totalOrderQty = orders.AsEnumerable().
                 Sum(o => o.Field<Int16>("OrderQty"));
-            Console.WriteLine("There are a total of {0} OrderQty.",
-                totalOrderQty);
+            Console.WriteLine($"There are a total of {totalOrderQty} OrderQty.");
             //</SnippetSumProjection_MQ>
         }
 
@@ -1742,8 +1721,7 @@ namespace LINQtoDataSetSamples
                 };
             foreach (var order in query)
             {
-                Console.WriteLine("ContactID = {0} \t TotalDue sum = {1}",
-                    order.Category, order.TotalDue);
+                Console.WriteLine($"ContactID = {order.Category} \t TotalDue sum = {order.TotalDue}");
             }
             //</SnippetSumGrouped_MQ>
         }
@@ -1763,8 +1741,7 @@ namespace LINQtoDataSetSamples
 
             Decimal smallestTotalDue = orders.AsEnumerable().
                 Min(totalDue => totalDue.Field<decimal>("TotalDue"));
-            Console.WriteLine("The smallest TotalDue is {0}.",
-                smallestTotalDue);
+            Console.WriteLine($"The smallest TotalDue is {smallestTotalDue}.");
             //</SnippetMinProjection_MQ>
         }
 
@@ -1793,8 +1770,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var order in query)
             {
-                Console.WriteLine("ContactID = {0} \t Minimum TotalDue = {1}",
-                    order.Category, order.smallestTotalDue);
+                Console.WriteLine($"ContactID = {order.Category} \t Minimum TotalDue = {order.smallestTotalDue}");
             }
             //</SnippetMinGrouped_MQ>
         }
@@ -1826,10 +1802,10 @@ namespace LINQtoDataSetSamples
 
             foreach (var orderGroup in query)
             {
-                Console.WriteLine("ContactID: {0}", orderGroup.Category);
+                Console.WriteLine($"ContactID: {orderGroup.Category}");
                 foreach (var order in orderGroup.smallestTotalDue)
                 {
-                    Console.WriteLine("Mininum TotalDue {0} for SalesOrderID {1}: ",
+                    Console.WriteLine("Minimum TotalDue {0} for SalesOrderID {1}: ",
                         order.Field<decimal>("TotalDue"),
                         order.Field<Int32>("SalesOrderID"));
                 }
@@ -1853,8 +1829,7 @@ namespace LINQtoDataSetSamples
 
             Decimal averageTotalDue = orders.AsEnumerable().
                 Average(order => order.Field<decimal>("TotalDue"));
-            Console.WriteLine("The average TotalDue is {0}.",
-                averageTotalDue);
+            Console.WriteLine($"The average TotalDue is {averageTotalDue}.");
             //</SnippetAverageProjection_MQ>
         }
 
@@ -1883,9 +1858,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var order in query)
             {
-                Console.WriteLine("ContactID = {0} \t Average TotalDue = {1}",
-                    order.Category,
-                    order.averageTotalDue);
+                Console.WriteLine($"ContactID = {order.Category} \t Average TotalDue = {order.averageTotalDue}");
             }
             //</SnippetAverageGrouped_MQ>
         }
@@ -1917,7 +1890,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var orderGroup in query)
             {
-                Console.WriteLine("ContactID: {0}", orderGroup.Category);
+                Console.WriteLine($"ContactID: {orderGroup.Category}");
                 foreach (var order in orderGroup.CheapestProducts)
                 {
                     Console.WriteLine("Average total due for SalesOrderID {1} is: {0}",
@@ -1944,8 +1917,7 @@ namespace LINQtoDataSetSamples
 
             Decimal maxTotalDue = orders.AsEnumerable().
                 Max(w => w.Field<decimal>("TotalDue"));
-            Console.WriteLine("The maximum TotalDue is {0}.",
-                maxTotalDue);
+            Console.WriteLine($"The maximum TotalDue is {maxTotalDue}.");
             //</SnippetMaxProjection_MQ>
         }
 
@@ -1974,8 +1946,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var order in query)
             {
-                Console.WriteLine("ContactID = {0} \t Maximum TotalDue = {1}",
-                    order.Category, order.maxTotalDue);
+                Console.WriteLine($"ContactID = {order.Category} \t Maximum TotalDue = {order.maxTotalDue}");
             }
             //</SnippetMaxGrouped_MQ>
         }
@@ -2007,7 +1978,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var orderGroup in query)
             {
-                Console.WriteLine("ContactID: {0}", orderGroup.Category);
+                Console.WriteLine($"ContactID: {orderGroup.Category}");
                 foreach (var order in orderGroup.CheapestProducts)
                 {
                     Console.WriteLine("MaxTotalDue {0} for SalesOrderID {1}: ",
@@ -2056,11 +2027,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var order in query)
             {
-                Console.WriteLine("{0}\t{1}\t{2:d}\t{3}",
-                    order.SalesOrderID,
-                    order.SalesOrderDetailID,
-                    order.OrderDate,
-                    order.ProductID);
+                Console.WriteLine($"{order.SalesOrderID}\t{order.SalesOrderDetailID}\t{order.OrderDate:d}\t{order.ProductID}");
             }
             //</SnippetJoin>
         }
@@ -2094,16 +2061,11 @@ namespace LINQtoDataSetSamples
 
             foreach (var contact_order in query)
             {
-                Console.WriteLine("ContactID: {0} "
-                                + "SalesOrderID: {1} "
-                                + "FirstName: {2} "
-                                + "Lastname: {3} "
-                                + "TotalDue: {4}",
-                    contact_order.ContactID,
-                    contact_order.SalesOrderID,
-                    contact_order.FirstName,
-                    contact_order.Lastname,
-                    contact_order.TotalDue);
+                Console.WriteLine($"ContactID: {contact_order.ContactID} "
+                                + "SalesOrderID: {contact_order.SalesOrderID} "
+                                + "FirstName: {contact_order.FirstName} "
+                                + "Lastname: {contact_order.Lastname} "
+                                + "TotalDue: {contact_order.TotalDue}");
             }
             //</SnippetJoinSimple_MQ>
         }
@@ -2139,16 +2101,11 @@ namespace LINQtoDataSetSamples
             {
                 foreach (var contact_order in group)
                 {
-                    Console.WriteLine("ContactID: {0} "
-                                    + "SalesOrderID: {1} "
-                                    + "FirstName: {2} "
-                                    + "Lastname: {3} "
-                                    + "TotalDue: {4}",
-                        contact_order.ContactID,
-                        contact_order.SalesOrderID,
-                        contact_order.FirstName,
-                        contact_order.Lastname,
-                        contact_order.TotalDue);
+                    Console.WriteLine($"ContactID: {contact_order.ContactID} "
+                                    + "SalesOrderID: {contact_order.SalesOrderID} "
+                                    + "FirstName: {contact_order.FirstName} "
+                                    + "Lastname: {contact_order.Lastname} "
+                                    + "TotalDue: {contact_order.TotalDue}");
                 }
             }
             //</SnippetJoinWithGroupedResults_MQ>
@@ -2184,9 +2141,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var order in query)
             {
-                Console.WriteLine("CustomerID: {0}  Orders Count: {1}",
-                    order.CustomerID,
-                    order.ords);
+                Console.WriteLine($"CustomerID: {order.CustomerID}  Orders Count: {order.ords}");
             }
             //</SnippetGroupJoin2>
         }
@@ -2222,16 +2177,11 @@ namespace LINQtoDataSetSamples
 
             foreach (var contact_order in query)
             {
-                Console.WriteLine("ContactID: {0} "
-                                + "SalesOrderID: {1} "
-                                + "FirstName: {2} "
-                                + "Lastname: {3} "
-                                + "TotalDue: {4}",
-                    contact_order.ContactID,
-                    contact_order.SalesOrderID,
-                    contact_order.FirstName,
-                    contact_order.Lastname,
-                    contact_order.TotalDue);
+                Console.WriteLine($"ContactID: {contact_order.ContactID} "
+                                + "SalesOrderID: {contact_order.SalesOrderID} "
+                                + "FirstName: {contact_order.FirstName} "
+                                + "Lastname: {contact_order.Lastname} "
+                                + "TotalDue: {contact_order.TotalDue}");
             }
             //</SnippetGroupJoin>
         }
@@ -2284,10 +2234,10 @@ namespace LINQtoDataSetSamples
 
             foreach (DataRow row in OnlineOrders.Rows)
             {
-                Console.WriteLine("First Name: {0}", row["FirstName"]);
-                Console.WriteLine("Last Name:  {0}", row["LastName"]);
-                Console.WriteLine("Order Date: {0}", row["OrderDate"]);
-                Console.WriteLine("Total Due:  ${0}", row["TotalDue"]);
+                Console.WriteLine($"First Name: {row["FirstName"]}");
+                Console.WriteLine($"Last Name:  {row["LastName"]}");
+                Console.WriteLine($"Order Date: {row["OrderDate"]}");
+                Console.WriteLine($"Total Due:  ${row["TotalDue"]}");
                 Console.WriteLine("");
             }
             //</SnippetLoadingQueryResultsIntoDataTable>
@@ -2506,8 +2456,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var order in query)
             {
-                Console.WriteLine("{0}\t{1}\t{2}",
-                    order.SalesOrderID, order.OrderQty, order.UnitPrice);
+                Console.WriteLine($"{order.SalesOrderID}\t{order.OrderQty}\t{order.UnitPrice}");
             }
             // </SnippetOrderBy>
         }
@@ -2532,8 +2481,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var order in query)
             {
-                Console.WriteLine("{0}\t{1}\t{2}",
-                    order.SalesOrderID, order.OrderQty, order.UnitPrice);
+                Console.WriteLine($"{order.SalesOrderID}\t{order.OrderQty}\t{order.UnitPrice}");
             }
             // </SnippetOrderByDescending>
         }
@@ -2554,7 +2502,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var productGroup in query)
             {
-                Console.WriteLine("{0}:", productGroup.Category);
+                Console.WriteLine($"{productGroup.Category}:");
                 foreach (var product in productGroup.Products)
                 {
                     Console.WriteLine("  Name: {0} Color: {1}",
@@ -2573,7 +2521,7 @@ namespace LINQtoDataSetSamples
 
             Decimal totalDue = orders.Sum(o => o.Field<Decimal>("TotalDue"));
 
-            Console.WriteLine("Sum of order amounts: ${0}", totalDue);
+            Console.WriteLine($"Sum of order amounts: ${totalDue}");
         }
 
         static void Sum2(DataSet ds)
@@ -2592,8 +2540,7 @@ namespace LINQtoDataSetSamples
 
             foreach (var emp in empSickLeaveHours)
             {
-                Console.WriteLine("Category: {0} Units sold: {1}",
-                    emp.Category, emp.TotalSickLeaveHours);
+                Console.WriteLine($"Category: {emp.Category} Units sold: {emp.TotalSickLeaveHours}");
             }
         }
 
@@ -2603,8 +2550,8 @@ namespace LINQtoDataSetSamples
             Console.WriteLine("DataSet info:");
             foreach (DataTable t in ds.Tables)
             {
-                Console.WriteLine("Table name: {0}", t.TableName);
-                Console.WriteLine("Number of rows: {0}", t.Rows.Count);
+                Console.WriteLine($"Table name: {t.TableName}");
+                Console.WriteLine($"Number of rows: {t.Rows.Count}");
 
                 foreach (DataColumn c in t.Columns)
                 {
@@ -2618,14 +2565,11 @@ namespace LINQtoDataSetSamples
 
         static void FillDataSet(DataSet ds)
         {
-            // <SnippetFillDataSet>
             try
             {
                 // Create a new adapter and give it a query to fetch sales order, contact,
-                // address, and product information for sales in the year 2002. Point connection
-                // information to the configuration setting "AdventureWorks".
-                string connectionString = "Data Source=localhost;Initial Catalog=AdventureWorks;"
-                    + "Integrated Security=true;";
+                // address, and product information for sales in the year 2002.
+                string connectionString = "some secure connection string";
 
                 SqlDataAdapter da = new SqlDataAdapter(
                     "SELECT SalesOrderID, ContactID, OrderDate, OnlineOrderFlag, " +
@@ -2689,7 +2633,6 @@ namespace LINQtoDataSetSamples
             {
                 Console.WriteLine("SQL exception occurred: " + ex.Message);
             }
-            // </SnippetFillDataSet>
         }
 
         static void WriteSchemaToXSD(DataSet ds)

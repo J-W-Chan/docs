@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Examples.AdvancedProgramming.AsynchronousOperations
 {
-    public class AsyncMain
+    public class AsyncMain3
     {
         public static void Main()
         {
@@ -17,13 +17,12 @@ namespace Examples.AdvancedProgramming.AsynchronousOperations
             // Create the delegate.
             AsyncMethodCaller caller = new AsyncMethodCaller(ad.TestMethod);
 
-            // Initiate the asychronous call.
+            // Initiate the asynchronous call.
             IAsyncResult result = caller.BeginInvoke(3000,
                 out threadId, null, null);
 
             Thread.Sleep(0);
-            Console.WriteLine("Main thread {0} does some work.",
-                Thread.CurrentThread.ManagedThreadId);
+            Console.WriteLine($"Main thread {Thread.CurrentThread.ManagedThreadId} does some work.");
 
             // Call EndInvoke to wait for the asynchronous call to complete,
             // and to retrieve the results.

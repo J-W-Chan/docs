@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace ca1031
@@ -7,8 +7,8 @@ namespace ca1031
     // Creates two violations of the rule.
     public class GenericExceptionsCaught
     {
-        FileStream inStream;
-        FileStream outStream;
+        FileStream? inStream;
+        FileStream? outStream;
 
         public GenericExceptionsCaught(string inFile, string outFile)
         {
@@ -18,7 +18,7 @@ namespace ca1031
             }
             catch (SystemException)
             {
-                Console.WriteLine("Unable to open {0}.", inFile);
+                Console.WriteLine($"Unable to open {inFile}.");
             }
 
             try
@@ -27,14 +27,14 @@ namespace ca1031
             }
             catch
             {
-                Console.WriteLine("Unable to open {0}.", outFile);
+                Console.WriteLine($"Unable to open {outFile}.");
             }
         }
     }
 
     public class GenericExceptionsCaughtFixed
     {
-        FileStream inStream;
+        FileStream? inStream;
         FileStream outStream;
 
         public GenericExceptionsCaughtFixed(string inFile, string outFile)
@@ -47,7 +47,7 @@ namespace ca1031
             // Fix the first violation by catching a specific exception.
             catch (FileNotFoundException)
             {
-                Console.WriteLine("Unable to open {0}.", inFile);
+                Console.WriteLine($"Unable to open {inFile}.");
             };
 
             // For functionally equivalent code, also catch 
@@ -62,7 +62,7 @@ namespace ca1031
             // exception at the end of the catch block.
             catch
             {
-                Console.WriteLine("Unable to open {0}.", outFile);
+                Console.WriteLine($"Unable to open {outFile}.");
                 throw;
             }
         }
